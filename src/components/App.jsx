@@ -12,7 +12,7 @@ class App extends Component {
                     <div className="nav navbar-nav">
                         <span className="navbar-brand">
                             l10n lion
-                            <span className="logo-icon"/>
+                            <span className="logo-icon" />
                         </span>
                     </div>
                 </div>

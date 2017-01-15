@@ -22,7 +22,7 @@ const render = (Component) => {
             <Component />
         </AppContainer>,
         document.getElementById('root')
-    )
+    );
 };
 
 
@@ -30,7 +30,7 @@ render(App);
 
 if (module.hot) {
     module.hot.accept('./components/App', () => {
-        const NewApp = require('./components/App').default;
+         /* eslint-disable */ const NewApp = require('./components/App').default;
 
         render(NewApp);
     });
