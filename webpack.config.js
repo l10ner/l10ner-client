@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     context: resolve(__dirname, 'src'),
@@ -10,21 +11,24 @@ module.exports = {
         'webpack/hot/only-dev-server',
         './index.jsx'
     ],
-    output: {
-        path: resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-        publicPath: '/assets/'
-    },
+
     module: {
         rules: [
             {
                 test: /\.jsx$/,
-                use: [
-                    'babel-loader'
-                ],
+                use: ['babel-loader'],
                 exclude: /node_modules/
             },
-            // Loaders for other file types can go here
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({
+                    loader: 'css-loader?importLoader=1!postcss-loader'
+                })
+            },
+            {
+                test: /\.(ttf|eot|woff|woff2)$/,
+                use: ['url-loader']
+            },
         ],
     },
     resolve: {
@@ -37,13 +41,19 @@ module.exports = {
         //
         // }
     },
+    output: {
+        path: resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        publicPath: '/assets/'
+    },
+
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(), // читабельные модули в консоли
+        new ExtractTextPlugin('bundle.css'),
+    ],
     devServer: {
-        hot: true,
         contentBase: resolve(__dirname, 'src'),
         publicPath:'/'
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin() // читабельные модули в консоли
-    ]
 };
