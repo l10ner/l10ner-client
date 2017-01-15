@@ -30,7 +30,7 @@ render(App);
 
 if (module.hot) {
     module.hot.accept('./components/App', () => {
-         /* eslint-disable */ const NewApp = require('./components/App').default;
+        const NewApp = require('./components/App').default; // eslint-disable-line global-require
 
         render(NewApp);
     });
