@@ -17,10 +17,10 @@ import App from './components/App';
 // configureSockets(store);
 
 const render = (Component) => {
-    ReactDOM.render(
-        <AppContainer>
-            <Component />
-        </AppContainer>,
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
         document.getElementById('root')
     );
 };
@@ -29,9 +29,9 @@ const render = (Component) => {
 render(App);
 
 if (module.hot) {
-    module.hot.accept('./components/App', () => {
-        const NewApp = require('./components/App').default; // eslint-disable-line global-require
+  module.hot.accept('./components/App', () => {
+    const NewApp = require('./components/App').default; // eslint-disable-line global-require
 
-        render(NewApp);
-    });
+    render(NewApp);
+  });
 }
