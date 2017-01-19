@@ -16,8 +16,12 @@
     "modules": true
   },
   "plugins": [
-    "react"
+    "react",
+    "import"
   ],
+  "settings": {
+    "import/resolver": "webpack"
+  },
   "rules": {
     "comma-dangle": 0,
 //    "indent": ["error", 4, {
@@ -40,13 +44,11 @@
 //    "func-names": 0,
 //    "import/no-extraneous-dependencies": 0,
 //    "import/extensions": 0,
-//    "import/prefer-default-export": 0,
+    "import/prefer-default-export": 0,
 //    "import/no-named-as-default": 0,
 //    "no-param-reassign": 0,
 //    "no-shadow": 0,
-    "react/prefer-stateless-function": [0, {
-      "ignorePureComponents": true
-    }],
+    "react/prefer-stateless-function": 0,
 //    "react/forbid-prop-types": 0,
 //    "no-console": 0,
 //    "react/no-danger": 0,

@@ -1,37 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import { browserHistory } from 'react-router';
 
-import App from './components/App';
+import configureStore from 'config/redux';
+// import configureSockets from './config/socket-io';
+import Root from 'containers/Root';
 
-// import { Router, browserHistory } from 'react-router';
-// import { Provider } from 'react-redux';
 
-// import configureStore from 'store/configureStore';
-// import configureSockets from 'store/configureSockets';
-// import { getRoutes } from './routes';
-// import './assets/styles/style.less';
-
-// const initialState = window.REDUX_INITIAL_STATE || {};
-// const store = configureStore(initialState, browserHistory);
+const store = configureStore({}, browserHistory);
 // configureSockets(store);
 
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <Component store={store} history={browserHistory} />
     </AppContainer>,
-        document.getElementById('root')
-    );
+    document.getElementById('root')
+  );
 };
 
-
-render(App);
+render(Root);
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => {
-    const NewApp = require('./components/App').default; // eslint-disable-line global-require
+  module.hot.accept('./containers/Root', () => {
+    const NewRoot = require('./containers/Root').default; // eslint-disable-line global-require
 
-    render(NewApp);
+    render(NewRoot);
   });
 }

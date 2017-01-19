@@ -1,30 +1,14 @@
 import React, { Component } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import '../css/style.css';
+import 'css/style.css';
+
+import Header from 'components/Header';
 
 class App extends Component {
   render() {
     return (<div>
-      <nav className="navbar navbar-inverse bg-inverse p-3">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <div className="navbar-brand">
-                <p className="h3 m-0">l10n Lion</p>
-              </div>
-            </div>
-            <div className="col-md-3 text-info text-center mt-1">
-              Hello Kitty!
-            </div>
-            <div className="col-md-6 text-md-right">
-              <button className="btn btn-outline-info ml-3" type="submit">Add Project</button>
-              <button className="btn btn-outline-info ml-3" type="submit">Log Im</button>
-              <button className="btn btn-outline-info ml-3" type="submit">Sign Up</button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
       <div className="container mt-4">
         <div className="row">
           <div className="col-sm-3">

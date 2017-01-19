@@ -16,12 +16,6 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        use: ['eslint-loader'],
-        enforce: 'pre',
-        exclude: [resolve(__dirname, 'node_modules')],
-      },
-      {
-        test: /\.jsx$/,
         use: ['babel-loader'],
         exclude: [resolve(__dirname, 'node_modules')]
       },
@@ -34,6 +28,12 @@ module.exports = {
       {
         test: /\.(ttf|eot|woff|woff2)$/,
         use: ['url-loader']
+      },
+      {
+        test: /\.jsx?$/,
+        use: ['eslint-loader'],
+        enforce: 'pre',
+        exclude: [resolve(__dirname, 'node_modules')],
       },
     ],
   },
