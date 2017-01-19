@@ -3,14 +3,28 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  context: resolve(__dirname, 'src'),
-  devtool: 'inline-source-map',
   entry: [
     'react-hot-loader/patch',
+
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     './index.jsx'
   ],
+  output: {
+    filename: 'bundle.js',
+    path: resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
+
+  context: resolve(__dirname, 'src'),
+
+  devtool: 'inline-source-map',
+
+  devServer: {
+    hot: true,
+    contentBase: resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
 
   module: {
     rules: [
@@ -43,23 +57,14 @@ module.exports = {
       resolve(__dirname, 'src')
     ],
     extensions: ['.js', '.jsx'],
-        // alias: {
-        //
-        // }
-  },
-  output: {
-    path: resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/assets/'
+    // alias: {
+    //
+    // }
   },
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(), // читабельные модули в консоли
+    new webpack.NamedModulesPlugin(),
     new ExtractTextPlugin('bundle.css'),
   ],
-  devServer: {
-    contentBase: resolve(__dirname, 'src'),
-    publicPath: '/'
-  },
 };
