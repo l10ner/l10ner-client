@@ -10,7 +10,7 @@
   "author": "Anagami <anagami.by@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server",
+    "start": "nodemon node_modules/webpack-dev-server/bin/webpack-dev-server",
     "build": "NODE_ENV='production' node node_modules/webpack/bin/webpack -p",
     "test": "mocha --compilers js:babel-core/register --require ignore-styles ./t/setup.js --recursive ./t",
     "test:watch": "npm run test -- --watch"
@@ -50,6 +50,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",
+    "react-modal": "^1.7.7",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.1",
     "redux": "^3.6.0",

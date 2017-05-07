@@ -16,7 +16,7 @@ class Header extends Component {
             </div>
             <div className="col-md-6 text-md-right">
               <button className="btn btn-outline-info ml-3" type="submit">Add Project</button>
-              <button className="btn btn-outline-info ml-3" type="submit">Log Im</button>
+              <button className="btn btn-outline-info ml-3" type="submit">Log In</button>
               <button className="btn btn-outline-info ml-3" type="submit">Sign Up</button>
             </div>
           </div>

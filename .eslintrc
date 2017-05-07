@@ -19,8 +19,15 @@
     "react",
     "import"
   ],
+//  "settings": {
+//    "import/resolver": "webpack"
+//  },
   "settings": {
-    "import/resolver": "webpack"
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.js"
+      }
+    }
   },
   "rules": {
     "comma-dangle": 0,

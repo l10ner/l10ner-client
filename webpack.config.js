@@ -5,7 +5,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: [
     'react-hot-loader/patch',
-
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     './index.jsx'
@@ -16,7 +15,7 @@ module.exports = {
     publicPath: '/'
   },
 
-  context: resolve(__dirname, 'src'),
+  context: resolve(__dirname, 'src/app'),
 
   devtool: 'inline-source-map',
 
@@ -52,13 +51,16 @@ module.exports = {
     ],
   },
   resolve: {
+    // root: resolve(__dirname, 'src'),
     modules: [
       'node_modules',
-      resolve(__dirname, 'src')
+      resolve(__dirname, 'src'),
+      resolve(__dirname, 'src/app'),
     ],
     extensions: ['.js', '.jsx'],
     // alias: {
-    //
+    //   containers: 'app/containers',
+    //   components: 'app/components'
     // }
   },
 
