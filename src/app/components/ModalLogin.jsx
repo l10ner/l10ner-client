@@ -1,29 +1,75 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Modal from 'react-modal';
+import { createForm } from 'rc-form';
+import { connect } from 'react-redux';
+
+import { logIn } from 'redux/user/actions';
 
 class ModalLogin extends Component {
+  static propTypes = {
+    closeModal: PropTypes.func.isRequired,
+    logIn: PropTypes.func.isRequired,
+    form: PropTypes.shape({
+      validateFields: PropTypes.func.isRequired,
+      getFieldProps: PropTypes.func.isRequired,
+      getFieldError: PropTypes.func.isRequired,
+      setFields: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
+  submit = () => {
+    this.props.form.validateFields((error, values) => {
+      if (!error) {
+        this.props.logIn(values).catch((err) => {
+          this.props.form.setFields({
+            __: {
+              errors: [new Error(err.data.name)],
+            },
+          });
+        });
+      }
+    });
+  };
+
+
   render() {
+    const { getFieldProps, getFieldError } = this.props.form;
+    const emailError = getFieldError('email');
+    const passwordError = getFieldError('password');
+    const formErros = getFieldError('__');
+
     return (
-      <nav className="navbar navbar-inverse bg-inverse p-3">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <div className="navbar-brand">
-                <p className="h3 m-0">l10n Lion!</p>
-              </div>
-            </div>
-            <div className="col-md-3 text-info text-center mt-1">
-              Hello Kitty!
-            </div>
-            <div className="col-md-6 text-md-right">
-              <button className="btn btn-outline-info ml-3" type="submit">Add Project</button>
-              <button className="btn btn-outline-info ml-3" type="submit">Log In</button>
-              <button className="btn btn-outline-info ml-3" type="submit">Sign Up</button>
-            </div>
-          </div>
+      <Modal
+        className="b-modal b-modal_size_small"
+        contentlabel="ModalLogin"
+        onRequestClose={this.props.closeModal}
+        isOpen
+      >
+        LOGIN TO SITE
+        <div>
+          {formErros && <p className="test">{formErros.join(', ')}</p>}
+          <input
+            {...getFieldProps('email', {
+              // onChange(){}, // have to write original onChange here if you need
+              rules: [{ required: true }],
+            })}
+          />
+          {emailError && emailError.join(',')}
+          <input
+            {...getFieldProps('password', {
+              // onChange(){}, // have to write original onChange here if you need
+              rules: [{ required: true }],
+            })}
+          />
+          {passwordError && passwordError.join(',')}
+          <button onClick={this.submit}>submit</button>
         </div>
-      </nav>
+      </Modal>
     );
   }
 }
 
-export default ModalLogin;
+
+export default connect(null, { logIn })(createForm()(ModalLogin));
+// export default ModalLogin;

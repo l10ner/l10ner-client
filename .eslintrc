@@ -34,11 +34,11 @@
 //    "indent": ["error", 4, {
 //      "SwitchCase": 1
 //    }],
-//    "max-len": ["error", 140, 4, {
+    "max-len": ["error", 120, 4, {
 //      "tabWidth": 4,
-//      "ignoreUrls": true,
-//      "ignoreComments": true
-//    }],
+      "ignoreUrls": true,
+      "ignoreComments": true
+    }],
 //    "no-underscore-dangle": 0,
 //    "react/jsx-indent": ["error", 4],
     "react/prop-types": 1,

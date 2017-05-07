@@ -34,17 +34,23 @@ export default {
 // Add a response interceptor
     api.interceptors.response.use(
             response => response,
-            ({ data }) => {
-              const error = data ? data.error || data : {};
+            ({ config, response }) => {
+              // const { code, data, name, error, config, response } = err;
+              //
+              // console.log(Object.keys(err), 'interceptor');
+              // console.log(config, response, 'interceptor');
+              // console.log(code, data, name, error, f, 'interceptor');
+              // const error = data ? data.error || data : {};
                 // console.log('Do something with response error', error);
 
               // if (api.storeDispatch) {
-              //   const errorMessage = Object.keys(error).length > 0 ? (error.message || 'SERVER_ERROR') : 'SERVER_ERROR';
+              //   const errorMessage = Object.keys(error).length > 0 ?
+              // (error.message || 'SERVER_ERROR') : 'SERVER_ERROR';
               //
               //   api.storeDispatch(errorMessage);
               // }
 
-              return Promise.reject(error);
+              return Promise.reject(response);
             }
         );
 
