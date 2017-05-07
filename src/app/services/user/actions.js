@@ -15,7 +15,7 @@ export function logOutUser() {
   return function (dispatch) {
     return api.logOutUser().then(() => {
       dispatch(logOutSuccess());
-yar    });
+    });
   };
 }
 

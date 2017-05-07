@@ -3,19 +3,19 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  context: resolve(__dirname, 'src/app'),
+
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './index.jsx'
+    'index.jsx'
   ],
   output: {
     filename: 'bundle.js',
     path: resolve(__dirname, 'dist'),
     publicPath: '/'
   },
-
-  context: resolve(__dirname, 'src/app'),
 
   devtool: 'inline-source-map',
 
@@ -34,8 +34,9 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          loader: 'css-loader?importLoader=1!postcss-loader'
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader?importLoader=1!postcss-loader'
         })
       },
       {
@@ -51,17 +52,12 @@ module.exports = {
     ],
   },
   resolve: {
-    // root: resolve(__dirname, 'src'),
     modules: [
       'node_modules',
       resolve(__dirname, 'src'),
       resolve(__dirname, 'src/app'),
     ],
     extensions: ['.js', '.jsx'],
-    // alias: {
-    //   containers: 'app/containers',
-    //   components: 'app/components'
-    // }
   },
 
   plugins: [

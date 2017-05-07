@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-
-import 'bootstrap/dist/css/bootstrap.css';
-import 'assets/style.css';
+import PropTypes from 'prop-types';
 
 import Header from 'components/Header';
 
 class App extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+  };
+
   render() {
     return (<div>
       <Header />
