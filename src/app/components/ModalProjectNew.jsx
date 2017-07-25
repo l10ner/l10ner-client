@@ -4,12 +4,12 @@ import Modal from 'react-modal';
 import { createForm } from 'rc-form';
 import { connect } from 'react-redux';
 
-import { logIn } from 'redux/user/actions';
+import { createProject } from 'redux/projects/actions';
 
-class ModalLogin extends Component {
+class ModalProjectNew extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
-    logIn: PropTypes.func.isRequired,
+    createProject: PropTypes.func.isRequired,
     form: PropTypes.shape({
       validateFields: PropTypes.func.isRequired,
       getFieldProps: PropTypes.func.isRequired,
@@ -21,7 +21,7 @@ class ModalLogin extends Component {
   submit = () => {
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        this.props.logIn(values).catch((err) => {
+        this.props.createProject(values).catch((err) => {
           this.props.form.setFields({
             __: {
               errors: [new Error(err.data.name)],
@@ -35,35 +35,35 @@ class ModalLogin extends Component {
 
   render() {
     const { getFieldProps, getFieldError } = this.props.form;
-    const emailError = getFieldError('email');
-    const passwordError = getFieldError('password');
+    const nameError = getFieldError('name');
+    const descError = getFieldError('desc');
     const formErros = getFieldError('__');
 
     return (
       <Modal
         className="b-modal b-modal_size_small"
-        contentLabel="ModalLogin"
+        contentLabel="ModalSignup"
         onRequestClose={this.props.closeModal}
         isOpen
       >
-        LOGIN TO SITE
+        CREATE NEW PROJECT
         <div>
           {formErros && <p className="test">{formErros.join(', ')}</p>}
           <input
-            {...getFieldProps('email', {
+            {...getFieldProps('name', {
               // onChange(){}, // have to write original onChange here if you need
               rules: [{ required: true }],
             })}
           />
-          {emailError && emailError.join(',')}
+          {nameError && nameError.join(',')}
           <input
-            {...getFieldProps('password', {
+            {...getFieldProps('desc', {
               // onChange(){}, // have to write original onChange here if you need
-              rules: [{ required: true }],
+              rules: [],
             })}
           />
-          {passwordError && passwordError.join(',')}
-          <button onClick={this.submit}>submit</button>
+          {descError && descError.join(',')}
+          <button onClick={this.submit}>create</button>
         </div>
       </Modal>
     );
@@ -71,5 +71,4 @@ class ModalLogin extends Component {
 }
 
 
-export default connect(null, { logIn })(createForm()(ModalLogin));
-// export default ModalLogin;
+export default connect(null, { createProject })(createForm()(ModalProjectNew));

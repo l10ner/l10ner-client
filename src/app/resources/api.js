@@ -11,6 +11,14 @@ export default {
     return api.post(`${API_SERVER}/authentication`, JSON.stringify(user));
   },
   logOutUser() {
-    return api.get(`${API_SERVER}/api/auth/logout`);
+    return api.get(`${API_SERVER}/auth/logout`);
+  },
+
+
+  projectCreate(project) {
+    return api.post(`${API_SERVER}/projects`, JSON.stringify(project));
+  },
+  projectList() {
+    return api.get(`${API_SERVER}/projects`);
   },
 };

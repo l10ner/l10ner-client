@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { API_SERVER } from 'config';
+import { API_SERVER, USER_TOKEN } from 'config';
 
 export default {
   setup() {
@@ -17,7 +17,17 @@ export default {
 
 // Add a request interceptor
     api.interceptors.request.use(
-            config => config,
+            (config) => {
+              console.log(config, 'configconfigconfigconfig');
+
+              const token = localStorage.getItem(USER_TOKEN);
+
+              if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+              }
+
+              return config;
+            },
             ({ data }) => {
               const error = data ? data.error || data : {};
 
@@ -38,7 +48,7 @@ export default {
               // const { code, data, name, error, config, response } = err;
               //
               // console.log(Object.keys(err), 'interceptor');
-              // console.log(config, response, 'interceptor');
+              console.log(config, response, 'interceptor');
               // console.log(code, data, name, error, f, 'interceptor');
               // const error = data ? data.error || data : {};
                 // console.log('Do something with response error', error);

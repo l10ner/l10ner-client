@@ -4,12 +4,12 @@ import Modal from 'react-modal';
 import { createForm } from 'rc-form';
 import { connect } from 'react-redux';
 
-import { logIn } from 'redux/user/actions';
+import { signUp } from 'redux/user/actions';
 
-class ModalLogin extends Component {
+class ModalSignup extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
-    logIn: PropTypes.func.isRequired,
+    signUp: PropTypes.func.isRequired,
     form: PropTypes.shape({
       validateFields: PropTypes.func.isRequired,
       getFieldProps: PropTypes.func.isRequired,
@@ -21,7 +21,7 @@ class ModalLogin extends Component {
   submit = () => {
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        this.props.logIn(values).catch((err) => {
+        this.props.signUp(values).catch((err) => {
           this.props.form.setFields({
             __: {
               errors: [new Error(err.data.name)],
@@ -42,11 +42,11 @@ class ModalLogin extends Component {
     return (
       <Modal
         className="b-modal b-modal_size_small"
-        contentLabel="ModalLogin"
+        contentLabel="ModalSignup"
         onRequestClose={this.props.closeModal}
         isOpen
       >
-        LOGIN TO SITE
+        REGISTRATION
         <div>
           {formErros && <p className="test">{formErros.join(', ')}</p>}
           <input
@@ -71,5 +71,5 @@ class ModalLogin extends Component {
 }
 
 
-export default connect(null, { logIn })(createForm()(ModalLogin));
+export default connect(null, { signUp })(createForm()(ModalSignup));
 // export default ModalLogin;
