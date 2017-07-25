@@ -28,6 +28,7 @@ import ProjectEdit from './ProjectEdit';
 //     </Route>
 //   );
 // };
+
 export const getRoutes = (/* store */) => (
   <Route component={App} path="/">
     <IndexRoute component={Dashboard} />

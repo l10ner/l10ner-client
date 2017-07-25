@@ -15,54 +15,54 @@ export default {
       }
     });
 
-// Add a request interceptor
+    // Add a request interceptor
     api.interceptors.request.use(
-            (config) => {
-              // console.log(config, 'configconfigconfigconfig');
+      (config) => {
+        // console.log(config, 'configconfigconfigconfig');
 
-              const token = localStorage.getItem(USER_TOKEN);
+        const token = localStorage.getItem(USER_TOKEN);
 
-              if (token) {
-                config.headers.Authorization = `Bearer ${token}`; // eslint-disable-line no-param-reassign
-              }
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`; // eslint-disable-line no-param-reassign
+        }
 
-              return config;
-            },
-            ({ data }) => {
-              const error = data ? data.error || data : {};
+        return config;
+      },
+      ({ data }) => {
+        const error = data ? data.error || data : {};
 
-                // console.log('// Do something with request error', error);
-                // Do something with request error
-              // if (api.storeDispatch) {
-              //   api.storeDispatch(error.message || error || 'SERVER_ERROR');
-              // }
+        // console.log('// Do something with request error', error);
+        // Do something with request error
+        // if (api.storeDispatch) {
+        //   api.storeDispatch(error.message || error || 'SERVER_ERROR');
+        // }
 
-              return Promise.reject(error);
-            }
-        );
+        return Promise.reject(error);
+      }
+    );
 
-// Add a response interceptor
+    // Add a response interceptor
     api.interceptors.response.use(
-            response => response,
-            // ({ config, response }) => {
-            //   // const { code, data, name, error, config, response } = err;
-            //   //
-            //   // console.log(Object.keys(err), 'interceptor');
-            //   // console.log(config, response, 'interceptor');
-            //   // console.log(code, data, name, error, f, 'interceptor');
-            //   // const error = data ? data.error || data : {};
-            //     // console.log('Do something with response error', error);
-            //
-            //   // if (api.storeDispatch) {
-            //   //   const errorMessage = Object.keys(error).length > 0 ?
-            //   // (error.message || 'SERVER_ERROR') : 'SERVER_ERROR';
-            //   //
-            //   //   api.storeDispatch(errorMessage);
-            //   // }
-            //
-            //   return Promise.reject(response);
-            // }
-            ({ response }) => Promise.reject(response)
+      response => response,
+      // ({ config, response }) => {
+      //   // const { code, data, name, error, config, response } = err;
+      //   //
+      //   // console.log(Object.keys(err), 'interceptor');
+      //   // console.log(config, response, 'interceptor');
+      //   // console.log(code, data, name, error, f, 'interceptor');
+      //   // const error = data ? data.error || data : {};
+      //     // console.log('Do something with response error', error);
+      //
+      //   // if (api.storeDispatch) {
+      //   //   const errorMessage = Object.keys(error).length > 0 ?
+      //   // (error.message || 'SERVER_ERROR') : 'SERVER_ERROR';
+      //   //
+      //   //   api.storeDispatch(errorMessage);
+      //   // }
+      //
+      //   return Promise.reject(response);
+      // }
+      ({ response }) => Promise.reject(response)
     );
 
     this.api = api;

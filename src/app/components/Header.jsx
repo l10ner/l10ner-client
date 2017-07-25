@@ -20,7 +20,7 @@ class Header extends Component {
           <div className="row">
             <div className="col-md-3">
               <div className="navbar-brand">
-                <p className="h3 m-0 test">l10n Lion!</p>
+                <p className="h3 m-0">l10n Lion!</p>
               </div>
             </div>
             <div className="col-md-3 text-info text-center mt-1">

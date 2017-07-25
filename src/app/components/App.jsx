@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <div className="container">
+        <div className="container mt-5">
           {this.props.children}
         </div>
       </div>
