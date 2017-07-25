@@ -8,6 +8,7 @@ import ProjectCard from 'components/ProjectCard';
 class Dashboard extends Component {
   static propTypes = {
     getProjects: PropTypes.func.isRequired,
+    entries: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   };
 
   componentDidMount() {
@@ -18,7 +19,7 @@ class Dashboard extends Component {
 
     return (
       <div>
-        {entries.map(p => <ProjectCard project={p} />)}
+        {entries.map(p => <ProjectCard project={p} key={p.id} />)}
         <hr />
         кнопка перейти только если проставлен дефолтный язык
         <hr />

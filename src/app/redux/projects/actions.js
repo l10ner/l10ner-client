@@ -6,7 +6,6 @@ import { GET_PROJECTS, CREATE_PROJECT } from './actionTypes';
 const getProjectsSuccess = createAction(GET_PROJECTS);
 export function getProjects() {
   return dispatch => api.projectList().then(({ data }) => {
-
     dispatch(getProjectsSuccess({
       entries: data.data,
       pager: {

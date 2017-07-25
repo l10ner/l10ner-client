@@ -3,7 +3,9 @@ import { Route, IndexRoute, Redirect } from 'react-router';
 // import { UserAuthWrapper } from 'redux-auth-wrapper';
 
 import App from 'components/App';
-import Dashboard from 'components/Dashboard';
+import Dashboard from './Dashboard';
+import Project from './Project';
+import ProjectEdit from './ProjectEdit';
 
 
 // const UserIsAuthenticated = UserAuthWrapper({
@@ -30,6 +32,9 @@ export const getRoutes = (/* store */) => (
   <Route component={App} path="/">
     <IndexRoute component={Dashboard} />
 
+    <Route path="projects/:projectId" component={Project} />
+    <Route path="projects/:projectId/edit" component={ProjectEdit} />
+
     <Redirect from="*" to="/" />
   </Route>
-  );
+);

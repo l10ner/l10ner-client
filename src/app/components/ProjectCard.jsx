@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 class ProjectCard extends Component {
   static propTypes = {
     project: PropTypes.shape({
-      name: PropTypes.number.isRequired,
-      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       desc: PropTypes.string,
     }).isRequired,
   };
@@ -20,9 +20,9 @@ class ProjectCard extends Component {
         <div className="card-block">
           <h3 className="card-title">{name}</h3>
           <p className="card-text">{desc}</p>
-          <Link to={`/project/${id}`} className="btn btn-primary mr-2">Перейти</Link>
-          <Link to={`/project/${id}/edit`} className="btn btn-primary mr-2">Редактировать</Link>
-          <a href="#" className="btn btn-primary mr-2">Удалить</a>
+          <Link to={`/projects/${id}`} className="btn btn-primary mr-2">Перейти</Link>
+          <Link to={`/projects/${id}/edit`} className="btn btn-secondary mr-2">Редактировать</Link>
+          <button className="btn btn-danger mr-2">Удалить</button>
         </div>
       </div>
     );
