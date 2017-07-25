@@ -3,13 +3,13 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  context: resolve(__dirname, 'src/app'),
+  context: resolve(__dirname, 'src'),
 
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    'index.jsx'
+    'app/index.jsx'
   ],
   output: {
     filename: 'bundle.js',

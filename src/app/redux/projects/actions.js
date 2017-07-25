@@ -8,8 +8,12 @@ export function getProjects() {
   return dispatch => api.projectList().then(({ data }) => {
 
     dispatch(getProjectsSuccess({
-      entries: data,
-      pager: {}
+      entries: data.data,
+      pager: {
+        total: data.total,
+        limit: data.limit,
+        skip: data.skip,
+      }
     }));
   });
 }
@@ -17,9 +21,6 @@ export function getProjects() {
 const createProjectSuccess = createAction(CREATE_PROJECT);
 export function createProject(project) {
   return dispatch => api.projectCreate(project).then(({ data }) => {
-    dispatch(createProjectSuccess({
-      entries: data,
-      pager: {}
-    }));
+    dispatch(createProjectSuccess(data));
   });
 }

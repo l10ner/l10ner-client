@@ -9,10 +9,12 @@ const initState = {
 
 const userReducer = handleActions({
   [CREATE_PROJECT]: (state, action) => ({
-    ...initState,
+    ...state,
+    entries: [action.payload, ...state.entries]
   }),
   [GET_PROJECTS]: (state, action) => ({
-    ...initState,
+    ...state,
+    ...action.payload
   }),
 }, initState);
 
