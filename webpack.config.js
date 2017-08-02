@@ -1,14 +1,13 @@
-const { resolve } = require('path');
+const { resolve, join } = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   context: resolve(__dirname, 'src'),
 
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client',
+    'webpack-dev-server/client?http://localhost:8080/', // без 8080 ошибка в консоли от сокетов
     'webpack/hot/only-dev-server',
     'app/index.jsx'
   ],
@@ -18,12 +17,12 @@ module.exports = {
     publicPath: '/'
   },
 
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
 
   devServer: {
     hot: true,
-    port: 8080,
-    contentBase: resolve(__dirname, 'dist'),
+    // port: 8080,
+    contentBase: join(__dirname, 'dist'),
     publicPath: '/',
     historyApiFallback: true
   },
@@ -64,9 +63,8 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    // new HtmlWebpackPlugin(),
     new ExtractTextPlugin('bundle.css'),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 };
