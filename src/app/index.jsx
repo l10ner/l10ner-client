@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import browserHistory from 'react-router/lib/browserHistory';
 import { AppContainer } from 'react-hot-loader'; // eslint-disable-line import/no-extraneous-dependencies
-
+import { syncHistoryWithStore } from 'react-router-redux';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -17,6 +17,7 @@ import 'assets/style.css';
 
 
 const store = configureStore({}, browserHistory);
+const history = syncHistoryWithStore(browserHistory, store);
 // const routes = getRoutes(store);
 const token = localStorage.getItem(USER_TOKEN);
 
@@ -26,7 +27,7 @@ if (token) store.dispatch(setSession(token));
 const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
-      <Component store={store} history={browserHistory} />
+      <Component store={store} history={history} />
     </AppContainer>,
     document.getElementById('root')
   );

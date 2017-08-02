@@ -21,13 +21,15 @@ class ModalLogin extends Component {
   submit = () => {
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        this.props.logIn(values).catch((err) => {
-          this.props.form.setFields({
-            __: {
-              errors: [new Error(err.data.name)],
-            },
+        this.props.logIn(values)
+          .then(() => this.props.closeModal())
+          .catch((err) => {
+            this.props.form.setFields({
+              __: {
+                errors: [new Error(err.data.name)],
+              },
+            });
           });
-        });
       }
     });
   };

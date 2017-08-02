@@ -11,7 +11,8 @@ export default {
     return api.post(`${API_SERVER}/authentication`, JSON.stringify(user));
   },
   logOutUser() {
-    return api.get(`${API_SERVER}/auth/logout`);
+    return api.delete(`${API_SERVER}/authentication`);
+    // return api.get(`${API_SERVER}/auth/logout`);
   },
 
 

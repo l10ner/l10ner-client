@@ -29,9 +29,14 @@ const UserIsAuthenticated = connectedRouterRedirect({
 //   );
 // };
 
-export const getRoutes = (/* store */) => (
+export const getRoutes = store => (
   <Route component={App} path="/">
-    <IndexRoute component={Home} />
+    <IndexRoute
+      component={Home}
+      onEnter={(nextState, replace) => {
+        if (store.getState().user.logged) replace('/projects');
+      }}
+    />
 
     <Route path="projects" component={UserIsAuthenticated(ProjectsList)} />
     <Route path="/projects/:projectId" component={UserIsAuthenticated(ProjectView)} />

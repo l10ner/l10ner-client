@@ -21,13 +21,15 @@ class ModalSignup extends Component {
   submit = () => {
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        this.props.signUp(values).catch((err) => {
-          this.props.form.setFields({
-            __: {
-              errors: [new Error(err.data.name)],
-            },
+        this.props.signUp(values)
+          .then(() => this.props.closeModal())
+          .catch((err) => {
+            this.props.form.setFields({
+              __: {
+                errors: [new Error(err.data.name)],
+              },
+            });
           });
-        });
       }
     });
   };
