@@ -5,7 +5,7 @@ const api = configureApi.setup();
 
 export default {
   signUpUser(user) {
-    return api.post(`${API_SERVER}/signup`, JSON.stringify(user));
+    return api.post(`${API_SERVER}/auth/signup`, JSON.stringify(user));
   },
   logInUser(user) {
     return api.post(`${API_SERVER}/authentication`, JSON.stringify(user));

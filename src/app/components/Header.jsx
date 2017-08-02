@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import IndexLink from 'react-router/lib/IndexLink';
 
 import ModalLogin from 'components/ModalLogin';
 import ModalSignup from 'components/ModalSignup';
@@ -20,7 +21,7 @@ class Header extends Component {
           <div className="row">
             <div className="col-md-3">
               <div className="navbar-brand">
-                <p className="h3 m-0">l10n Lion!</p>
+                <IndexLink to="/" className="h3 m-0">l10n Lion!</IndexLink>
               </div>
             </div>
             <div className="col-md-3 text-info text-center mt-1">

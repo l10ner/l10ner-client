@@ -1,13 +1,14 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   context: resolve(__dirname, 'src'),
 
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client',
     'webpack/hot/only-dev-server',
     'app/index.jsx'
   ],
@@ -21,8 +22,10 @@ module.exports = {
 
   devServer: {
     hot: true,
+    port: 8080,
     contentBase: resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/',
+    historyApiFallback: true
   },
 
   module: {
@@ -63,6 +66,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
+    // new HtmlWebpackPlugin(),
     new ExtractTextPlugin('bundle.css'),
   ],
 };

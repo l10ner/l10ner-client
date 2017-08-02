@@ -1,21 +1,21 @@
 import React from 'react';
 import { Route, IndexRoute, Redirect } from 'react-router';
-// import { UserAuthWrapper } from 'redux-auth-wrapper';
+import { connectedRouterRedirect } from 'redux-auth-wrapper/history3/redirect';
 
-import App from 'components/App';
-import Dashboard from './Dashboard';
-import Project from './Project';
+import App from './App';
+import Home from './Home';
+import ProjectsList from './Projects';
+import ProjectView from './Project';
 import ProjectEdit from './ProjectEdit';
 
-
-// const UserIsAuthenticated = UserAuthWrapper({
-//   authSelector: state => (state.user.logged ? state.user : {}), // how to get the user state
-//   failureRedirectPath: '/',
-//   allowRedirectBack: false,
-//   authenticatingSelector: state => state.user.logged,
-//   // redirectAction: routerActions.replace, // the redux action to dispatch for redirect
-//   wrapperDisplayName: 'UserIsAuthenticated', // a nice name for this auth check
-// });
+const UserIsAuthenticated = connectedRouterRedirect({
+  authenticatedSelector: state => state.user.logged, // how to get the user state
+  redirectPath: '/',
+  allowRedirectBack: false,
+  authenticatingSelector: state => state.user.logged,
+  // redirectAction: routerActions.replace, // the redux action to dispatch for redirect
+  wrapperDisplayName: 'UserIsAuthenticated', // a nice name for this auth check
+});
 
 // export const getRoutes = (/* store */) => {
 //   // const connect = fn => (nextState, replaceState) => fn(store, nextState, replaceState);
@@ -31,11 +31,11 @@ import ProjectEdit from './ProjectEdit';
 
 export const getRoutes = (/* store */) => (
   <Route component={App} path="/">
-    <IndexRoute component={Dashboard} />
+    <IndexRoute component={Home} />
 
-    <Route path="projects/:projectId" component={Project} />
-    <Route path="projects/:projectId/edit" component={ProjectEdit} />
-
+    <Route path="projects" component={UserIsAuthenticated(ProjectsList)} />
+    <Route path="/projects/:projectId" component={UserIsAuthenticated(ProjectView)} />
+    <Route path="projects/:projectId/edit" component={UserIsAuthenticated(ProjectEdit)} />
     <Redirect from="*" to="/" />
   </Route>
 );

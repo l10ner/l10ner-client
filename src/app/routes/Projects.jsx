@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getProjects } from 'redux/projects/actions';
 import ProjectCard from 'components/ProjectCard';
 
-class Dashboard extends Component {
+class Projects extends Component {
   static propTypes = {
     getProjects: PropTypes.func.isRequired,
     entries: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -37,4 +37,4 @@ function mapStateToProps({ projects }) {
   };
 }
 
-export default connect(mapStateToProps, { getProjects })(Dashboard);
+export default connect(mapStateToProps, { getProjects })(Projects);

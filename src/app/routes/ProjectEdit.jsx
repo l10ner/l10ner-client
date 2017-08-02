@@ -10,7 +10,15 @@ class ProjectEdit extends Component {
   render() {
     return (
       <div>
-        ProjectEdit
+        <h3>ProjectEdit</h3>
+        таблица с языками проекта
+        <hr />
+        форма добавления языка(key/label)
+        <hr />
+        выбор дефолтного языка проекта
+        <hr />
+        редактирование имени/описания проекта
+        <hr />
       </div>
     );
   }
