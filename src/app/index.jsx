@@ -11,7 +11,7 @@ import Root from 'containers/Root';
 
 import { USER_TOKEN } from 'config';
 import configureStore from 'config/redux';
-import { setSession } from 'redux/user/actions';
+import { getUser } from 'redux/user/actions';
 
 import 'assets/style.css';
 
@@ -21,7 +21,13 @@ const history = syncHistoryWithStore(browserHistory, store);
 // const routes = getRoutes(store);
 const token = localStorage.getItem(USER_TOKEN);
 
-if (token) store.dispatch(setSession(token));
+
+let bootApp = new Promise(resolve => resolve());
+
+
+if (token) {
+  bootApp = store.dispatch(getUser(token));
+}
 
 
 const render = (Component) => {
@@ -33,7 +39,9 @@ const render = (Component) => {
   );
 };
 
-render(Root);
+bootApp.then(() => render(Root)).catch(() => render(Root));
+
+// render(Root);
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {

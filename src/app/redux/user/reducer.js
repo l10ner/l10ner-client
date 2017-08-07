@@ -1,6 +1,6 @@
 import { handleActions, combineActions } from 'redux-actions';
 
-import { LOGIN, LOGOUT, SIGNUP, SET_SESSION } from './actionTypes';
+import { LOGIN, LOGOUT, SIGNUP } from './actionTypes';
 
 const initState = {
   logged: false,
@@ -13,10 +13,6 @@ const userReducer = handleActions({
     logged: true,
     ...action.payload
   }),
-  [SET_SESSION]: (state, action) => (action.payload ? {
-    logged: true,
-    ...action.payload
-  } : initState),
   [LOGOUT]: () => ({
     ...initState,
     logged: false

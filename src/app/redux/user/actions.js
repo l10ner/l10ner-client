@@ -4,29 +4,49 @@ import { replace } from 'react-router-redux';
 
 import api from 'resources/api';
 import { USER_TOKEN } from 'config';
-import { LOGIN, LOGOUT, SIGNUP, SET_SESSION } from './actionTypes';
+import { LOGIN, LOGOUT, SIGNUP } from './actionTypes';
 
 const logInSuccess = createAction(LOGIN);
 export function logIn(user) {
   return dispatch => api.logInUser(user).then(({ data }) => {
     localStorage.setItem(USER_TOKEN, data.accessToken);
+
     dispatch(logInSuccess({
-      username: jwtDecode(data.accessToken).email, // Nota Bene!
+      username: data.email, // Nota Bene!
       token: data.accessToken
     }));
     dispatch(replace('/projects'));
   });
 }
 
-// const setSessionSuccess = createAction(SET_SESSION);
-export function setSession(token) {
-  return {
-    type: SET_SESSION,
-    payload: token ? {
-      username: jwtDecode(token).email,
+// не считая метода апи - полная копипаста логина
+const signUpSuccess = createAction(SIGNUP);
+export function signUp(user) {
+  return dispatch => api.signUpUser(user).then(({ data }) => {
+    localStorage.setItem(USER_TOKEN, data.accessToken);
+
+    dispatch(signUpSuccess({
+      username: data.email, // Nota Bene!
+      token: data.accessToken
+    }));
+    dispatch(replace('/projects'));
+  });
+}
+
+
+export function getUser(token) {
+  const { userId } = jwtDecode(token);
+
+  return dispatch => api.getUser(userId).then(({ data }) => {
+    dispatch(logInSuccess({
+      username: data.email, // Nota Bene!
       token
-    } : null
-  };
+    }));
+  }).catch((e) => {
+    if (e.status === 401) localStorage.removeItem(USER_TOKEN); // токен просрочен
+
+    return e;
+  });
 }
 
 const logOutSuccess = createAction(LOGOUT);
@@ -35,9 +55,4 @@ export function logOut() {
     localStorage.removeItem(USER_TOKEN);
     dispatch(logOutSuccess());
   });
-}
-
-const signUpSuccess = createAction(SIGNUP);
-export function signUp(data) {
-  return dispatch => api.signUpUser(data).then(response => dispatch(signUpSuccess(response.data)));
 }

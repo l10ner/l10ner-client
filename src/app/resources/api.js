@@ -12,7 +12,9 @@ export default {
   },
   logOutUser() {
     return api.delete(`${API_SERVER}/authentication`);
-    // return api.get(`${API_SERVER}/auth/logout`);
+  },
+  getUser(id) {
+    return api.get(`${API_SERVER}/users/${id}`);
   },
 
 
