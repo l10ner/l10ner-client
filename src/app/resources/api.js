@@ -24,4 +24,24 @@ export default {
   projectList() {
     return api.get(`${API_SERVER}/projects`);
   },
+  projectDetails(id) {
+    return api.get(`${API_SERVER}/projects/${id}`);
+  },
+  projectUpdate(id, data) {
+    return api.patch(`${API_SERVER}/projects/${id}`, JSON.stringify(data));
+  },
+  projectDelete(id) {
+    return api.delete(`${API_SERVER}/projects/${id}`);
+  },
+
+
+  createLocale(projectId, data) {
+    return api.post(`${API_SERVER}/projects/${projectId}/locales`, JSON.stringify(data));
+  },
+  updateLocale(id, data) {
+    return api.patch(`${API_SERVER}/locales/${id}`, JSON.stringify(data));
+  },
+  deleteLocale(projectId, localeId) {
+    return api.delete(`${API_SERVER}/projects/${projectId}/locales/${localeId}`);
+  },
 };

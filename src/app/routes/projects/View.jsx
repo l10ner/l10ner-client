@@ -1,13 +1,57 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Link from 'react-router/lib/Link';
+
+import { getProject, dropProjectData } from 'redux/projects/actions';
+
+import ProjectNavigation from 'components/ProjectNavigation';
 
 class Project extends Component {
-  // static propTypes = {
-  //   getProjects: PropTypes.func.isRequired,
-  // };
+  static propTypes = {
+    children: PropTypes.node,
+    params: PropTypes.shape({
+      projectId: PropTypes.string.isRequired
+    }).isRequired,
+    getProject: PropTypes.func.isRequired,
+    dropProjectData: PropTypes.func.isRequired,
+    isLoaded: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    children: undefined
+  };
+
+  componentDidMount() {
+    this.getProjectData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.params.projectId !== prevProps.params.projectId) this.getProjectData();
+  }
+
+  componentWillUnmount() {
+    this.props.dropProjectData();
+  }
+
+  getProjectData() {
+    this.props.getProject(this.props.params.projectId);
+  }
 
   render() {
+    const { children, params: { projectId }, isLoaded } = this.props;
+
+    if (!isLoaded) return null;
+
+    if (children) {
+      return (<div>
+        <ProjectNavigation projectId={Number(projectId)} />
+        {children}
+        <hr />
+        <Link to="/projects" className="btn btn-primary">Back to projects</Link>
+      </div>);
+    }
+
     return (
       <div>
         <h3>Project</h3>
@@ -118,4 +162,9 @@ class Project extends Component {
 }
 
 
-export default Project;
+function mapStateToProps({ projects }) {
+  return {
+    isLoaded: Boolean(projects.current.id)
+  };
+}
+export default connect(mapStateToProps, { getProject, dropProjectData })(Project);

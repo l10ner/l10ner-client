@@ -56,6 +56,7 @@ class ModalProjectNew extends Component {
               // onChange(){}, // have to write original onChange here if you need
               rules: [{ required: true }],
             })}
+            placeholder="Name"
           />
           {nameError && nameError.join(',')}
           <input
@@ -63,6 +64,7 @@ class ModalProjectNew extends Component {
               // onChange(){}, // have to write original onChange here if you need
               rules: [],
             })}
+            placeholder="Description"
           />
           {descError && descError.join(',')}
           <button onClick={this.submit}>create</button>

@@ -4,9 +4,11 @@ import { connectedRouterRedirect } from 'redux-auth-wrapper/history3/redirect';
 
 import App from './App';
 import Home from './Home';
-import ProjectsList from './Projects';
-import ProjectView from './Project';
-import ProjectEdit from './ProjectEdit';
+import Projects from './projects';
+import ProjectView from './projects/View';
+import ProjectEdit from './projects/Edit';
+import ProjectMembers from './projects/Members';
+import ProjectLocales from './projects/Locales';
 
 const UserIsAuthenticated = connectedRouterRedirect({
   authenticatedSelector: state => state.user.logged, // how to get the user state
@@ -17,18 +19,6 @@ const UserIsAuthenticated = connectedRouterRedirect({
   wrapperDisplayName: 'UserIsAuthenticated', // a nice name for this auth check
 });
 
-// export const getRoutes = (/* store */) => {
-//   // const connect = fn => (nextState, replaceState) => fn(store, nextState, replaceState);
-//
-//   return (
-//     <Route component={App} path="/">
-//       <IndexRoute component={Dashboard} />
-//
-//       <Redirect from="*" to="/" />
-//     </Route>
-//   );
-// };
-
 export const getRoutes = store => (
   <Route component={App} path="/">
     <IndexRoute
@@ -38,9 +28,13 @@ export const getRoutes = store => (
       }}
     />
 
-    <Route path="projects" component={UserIsAuthenticated(ProjectsList)} />
-    <Route path="/projects/:projectId" component={UserIsAuthenticated(ProjectView)} />
-    <Route path="projects/:projectId/edit" component={UserIsAuthenticated(ProjectEdit)} />
+    <Route path="projects" component={UserIsAuthenticated(Projects)} />
+    <Route path="projects/:projectId" component={UserIsAuthenticated(ProjectView)}>
+      <Route path="edit" component={ProjectEdit} />
+      <Route path="locales" component={ProjectLocales} />
+      <Route path="members" component={ProjectMembers} />
+    </Route>
+
     <Redirect from="*" to="/" />
   </Route>
 );
