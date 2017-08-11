@@ -39,7 +39,7 @@ class ProjectEdit extends Component {
 
   renderLocalesDropdown() {
     const { project } = this.props;
-    const isEmpty = project.locales.total === 0;
+    const isEmpty = project.locales.length === 0;
     const { getFieldProps } = this.props.form;
 
     return (
@@ -52,7 +52,7 @@ class ProjectEdit extends Component {
           :
           <select
             {...getFieldProps('default_locale', {
-              initialValue: project.default_locale || project.locales.data[0].id || '',
+              initialValue: project.default_locale || project.locales[0].id || '',
               rules: [],
               getValueFromEvent(e) {
                 return Number(e.target.value);
@@ -62,7 +62,7 @@ class ProjectEdit extends Component {
             id="default_locale"
             disabled={isEmpty}
           >
-            {project.locales.data.map(o => (
+            {project.locales.map(o => (
               <option value={o.id} key={o.id}>{o.label} ({o.key})</option>
             ))}
           </select>

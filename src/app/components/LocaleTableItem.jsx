@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { createForm } from 'rc-form';
 
+import ModalLocaleEdit from 'components/modals/LocaleNew';
+
 class LocaleTableItem extends Component {
   static propTypes = {
     onUpdate: PropTypes.func.isRequired,
@@ -21,7 +23,7 @@ class LocaleTableItem extends Component {
   };
 
   state = {
-    isEditMode: false
+    modalLocaleEdit: false
   };
 
   // componentWillReceiveProps() {
@@ -73,47 +75,21 @@ class LocaleTableItem extends Component {
   };
 
   render() {
-    const { locale, isDefault, form: { getFieldProps } } = this.props;
-    const { isEditMode } = this.state;
+    const { locale, isDefault } = this.props;
+    const { modalLocaleEdit } = this.state;
 
     return (
       <tr className={isDefault ? 'table-info' : ''}>
-        <td className="align-middle">{isEditMode ?
-          <input
-            {...getFieldProps('key', {
-              rules: [{ required: true }],
-              initialValue: locale.key,
-            })}
-            id="localeKey"
-            className="form-control"
-            placeholder="en"
-          />
-          : locale.key}</td>
-        <td className="align-middle">{isEditMode ?
-          <input
-            {...getFieldProps('label', {
-              rules: [{ required: true }],
-              initialValue: locale.label,
-            })}
-            className="form-control"
-            id="localeLabel"
-            placeholder="English"
-          />
-          : locale.label}</td>
-        {isEditMode ?
-          <td className="text-right">
-            <button type="button" className="btn btn-primary ml-3" onClick={this.handleSave}>Save</button>
-            <button type="button" className="btn btn-danger ml-3" onClick={() => this.setState({ isEditMode: false })}>
-              Cancel
-            </button>
-          </td>
-          :
-          <td className="text-right">
-            <button type="button" className="btn btn-primary ml-3" onClick={() => this.setState({ isEditMode: true })}>
-              Edit
-            </button>
-            <button type="button" className="btn btn-danger ml-3" onClick={this.handleConfirmDelete}>Delete</button>
-          </td>
+        <td className="align-middle">{locale.key}</td>
+        <td className="align-middle">{locale.label}</td>
+        <td className="text-right">
+          <button type="button" className="btn btn-primary" onClick={() => this.setState({ modalLocaleEdit: true })}>
+            Edit
+          </button>
+          <button type="button" className="btn btn-danger ml-3" onClick={this.handleConfirmDelete}>Delete</button>
+        </td>
+        {modalLocaleEdit &&
+          <ModalLocaleEdit closeModal={() => this.setState({ modalLocaleEdit: false })} locale={locale} />
         }
       </tr>
     );

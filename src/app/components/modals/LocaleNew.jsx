@@ -4,13 +4,15 @@ import Modal from 'react-modal';
 import { createForm } from 'rc-form';
 import { connect } from 'react-redux';
 
-import { createLocale } from 'redux/projects/actions';
+import { createLocale, updateLocale } from 'redux/projects/actions';
 
 class ModalLocaleNew extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
-    projectId: PropTypes.number.isRequired,
+    projectId: PropTypes.number,
+    locale: PropTypes.shape({}),
     createLocale: PropTypes.func.isRequired,
+    updateLocale: PropTypes.func.isRequired,
     form: PropTypes.shape({
       validateFields: PropTypes.func.isRequired,
       getFieldProps: PropTypes.func.isRequired,
@@ -19,10 +21,20 @@ class ModalLocaleNew extends Component {
     }).isRequired,
   };
 
-  submit = () => {
+  static defaultProps = {
+    projectId: undefined,
+    locale: undefined,
+  };
+
+  handleSubmit = () => {
+    const { locale, projectId } = this.props;
+
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        this.props.createLocale(this.props.projectId, values)
+        const action = locale ? this.props.updateLocale : this.props.createLocale;
+        const params = locale ? [{ ...values, id: locale.id }] : [projectId, values];
+
+        action(...params)
           .then(() => this.props.closeModal())
           .catch((err) => {
             this.props.form.setFields({
@@ -36,7 +48,7 @@ class ModalLocaleNew extends Component {
   };
 
   render() {
-    const { getFieldProps, getFieldError } = this.props.form;
+    const { locale, form: { getFieldProps, getFieldError } } = this.props;
     const keyError = getFieldError('key');
     const labelError = getFieldError('label');
     const formErros = getFieldError('__');
@@ -56,6 +68,7 @@ class ModalLocaleNew extends Component {
             <input
               {...getFieldProps('key', {
                 rules: [{ required: true }],
+                initialValue: locale ? locale.key : ''
               })}
               id="localeKey"
               className="form-control"
@@ -68,6 +81,7 @@ class ModalLocaleNew extends Component {
             <input
               {...getFieldProps('label', {
                 rules: [{ required: true }],
+                initialValue: locale ? locale.label : ''
               })}
               className="form-control"
               id="localeLabel"
@@ -75,7 +89,7 @@ class ModalLocaleNew extends Component {
             />
             {labelError && labelError.join(',')}
           </div>
-          <button onClick={this.submit} className="btn btn-primary">Save</button>
+          <button onClick={this.handleSubmit} className="btn btn-primary">Save</button>
         </div>
       </Modal>
     );
@@ -83,4 +97,4 @@ class ModalLocaleNew extends Component {
 }
 
 
-export default connect(null, { createLocale })(createForm()(ModalLocaleNew));
+export default connect(null, { createLocale, updateLocale })(createForm()(ModalLocaleNew));
