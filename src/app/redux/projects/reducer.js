@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 
 import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT, DROP_PROJECT, DELETE_PROJECT, UPDATE_PROJECT,
-  UPDATE_LOCALE } from './actionTypes';
+  UPDATE_LOCALE, UPDATE_DICTIONARY } from './actionTypes';
 
 const initState = {
   entries: [],
@@ -44,6 +44,13 @@ const userReducer = handleActions({
     current: {
       ...state.current,
       locales: state.current.locales.map(locale => (locale.id === action.payload.id ? action.payload : locale))
+    }
+  }),
+  [UPDATE_DICTIONARY]: (state, action) => ({
+    ...state,
+    current: {
+      ...state.current,
+      dictionaries: state.current.dictionaries.map(dict => (dict.id === action.payload.id ? action.payload : dict))
     }
   }),
 }, initState);

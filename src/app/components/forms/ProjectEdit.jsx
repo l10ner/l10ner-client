@@ -44,22 +44,22 @@ class ProjectEdit extends Component {
 
     return (
       <div className="form-group">
-        <label htmlFor="default_locale">Default locale</label>
+        <label htmlFor="defaultLocale">Default locale</label>
         {isEmpty ?
           <div>
             <Link to={`/projects/${project.id}/locales`}>Please add locales</Link>
           </div>
           :
           <select
-            {...getFieldProps('default_locale', {
-              initialValue: project.default_locale || project.locales[0].id || '',
+            {...getFieldProps('defaultLocale', {
+              initialValue: project.defaultLocale || project.locales[0].id || '',
               rules: [],
               getValueFromEvent(e) {
                 return Number(e.target.value);
               }
             })}
             className="form-control"
-            id="default_locale"
+            id="defaultLocale"
             disabled={isEmpty}
           >
             {project.locales.map(o => (

@@ -9,6 +9,7 @@ import ProjectView from './projects/View';
 import ProjectEdit from './projects/Edit';
 import ProjectMembers from './projects/Members';
 import ProjectLocales from './projects/Locales';
+import ProjectDictionaries from './projects/Dictionaries';
 
 const UserIsAuthenticated = connectedRouterRedirect({
   authenticatedSelector: state => state.user.logged, // how to get the user state
@@ -33,6 +34,10 @@ export const getRoutes = store => (
       <Route path="edit" component={ProjectEdit} />
       <Route path="locales" component={ProjectLocales} />
       <Route path="members" component={ProjectMembers} />
+      <Route path="dictionaries" component={ProjectDictionaries} />
+
+      <Route path="locales/:localeId/dictionaries" />
+      <Route path="locales/:localeId/dictionaries/:dictionaryId" />
     </Route>
 
     <Redirect from="*" to="/" />

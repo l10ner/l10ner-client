@@ -4,15 +4,15 @@ import Modal from 'react-modal';
 import { createForm } from 'rc-form';
 import { connect } from 'react-redux';
 
-import { createLocale, updateLocale } from 'redux/projects/actions';
+import { createDictionary, updateDictionary } from 'redux/projects/actions';
 
-class ModalLocaleNew extends Component {
+class ModalDictionaryForm extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
     projectId: PropTypes.number,
-    locale: PropTypes.shape({}),
-    createLocale: PropTypes.func.isRequired,
-    updateLocale: PropTypes.func.isRequired,
+    dictionary: PropTypes.shape({}),
+    createDictionary: PropTypes.func.isRequired,
+    updateDictionary: PropTypes.func.isRequired,
     form: PropTypes.shape({
       validateFields: PropTypes.func.isRequired,
       getFieldProps: PropTypes.func.isRequired,
@@ -23,16 +23,16 @@ class ModalLocaleNew extends Component {
 
   static defaultProps = {
     projectId: undefined,
-    locale: undefined,
+    dictionary: undefined,
   };
 
   handleSubmit = () => {
-    const { locale, projectId } = this.props;
+    const { dictionary, projectId } = this.props;
 
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        const action = locale ? this.props.updateLocale : this.props.createLocale;
-        const params = locale ? [{ ...values, id: locale.id }] : [projectId, values];
+        const action = dictionary ? this.props.updateDictionary : this.props.createDictionary;
+        const params = dictionary ? [{ ...values, id: dictionary.id }] : [projectId, values];
 
         action(...params)
           .then(() => this.props.closeModal())
@@ -48,46 +48,46 @@ class ModalLocaleNew extends Component {
   };
 
   render() {
-    const { locale, form: { getFieldProps, getFieldError } } = this.props;
-    const keyError = getFieldError('key');
-    const labelError = getFieldError('label');
+    const { dictionary, form: { getFieldProps, getFieldError } } = this.props;
+    const nameError = getFieldError('name');
+    const descError = getFieldError('desc');
     const formErros = getFieldError('__');
 
     return (
       <Modal
         className="b-modal b-modal_size_small"
-        contentLabel="ModalLocaleNew"
+        contentLabel="ModalDictionaryForm"
         onRequestClose={this.props.closeModal}
         isOpen
       >
-        Add new locale
+        Add new dictionary
         <div>
           {formErros && <p className="test">{formErros.join(', ')}</p>}
           <div className="form-group">
-            <label htmlFor="localeKey">Key</label>
+            <label htmlFor="nameKey">Name</label>
             <input
-              {...getFieldProps('key', {
+              {...getFieldProps('name', {
                 rules: [{ required: true }],
-                initialValue: locale ? locale.key : ''
+                initialValue: dictionary ? dictionary.name : ''
               })}
-              id="localeKey"
+              id="nameKey"
               className="form-control"
-              placeholder="en"
+              placeholder="profile"
             />
-            {keyError && keyError.join(',')}
+            {nameError && nameError.join(',')}
           </div>
           <div className="form-group">
-            <label htmlFor="localeLabel">Label</label>
+            <label htmlFor="descLabel">Description</label>
             <input
-              {...getFieldProps('label', {
+              {...getFieldProps('desc', {
                 rules: [{ required: true }],
-                initialValue: locale ? locale.label : ''
+                initialValue: dictionary ? dictionary.desc : ''
               })}
               className="form-control"
-              id="localeLabel"
-              placeholder="English"
+              id="descLabel"
+              placeholder="profile pages"
             />
-            {labelError && labelError.join(',')}
+            {descError && descError.join(',')}
           </div>
           <button onClick={this.handleSubmit} className="btn btn-primary">Save</button>
         </div>
@@ -97,4 +97,4 @@ class ModalLocaleNew extends Component {
 }
 
 
-export default connect(null, { createLocale, updateLocale })(createForm()(ModalLocaleNew));
+export default connect(null, { createDictionary, updateDictionary })(createForm()(ModalDictionaryForm));

@@ -44,4 +44,15 @@ export default {
   deleteLocale(projectId, localeId) {
     return api.delete(`${API_SERVER}/projects/${projectId}/locales/${localeId}`);
   },
+
+
+  createDictionary(projectId, data) {
+    return api.post(`${API_SERVER}/projects/${projectId}/dictionaries`, JSON.stringify(data));
+  },
+  updateDictionary(id, data) {
+    return api.patch(`${API_SERVER}/dictionaries/${id}`, JSON.stringify(data));
+  },
+  deleteDictionary(projectId, dictionaryId) {
+    return api.delete(`${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}`);
+  },
 };

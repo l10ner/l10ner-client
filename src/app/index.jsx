@@ -7,7 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-import Root from 'containers/Root';
+import Root from 'components/Root';
 
 import { USER_TOKEN } from 'config';
 import configureStore from 'config/redux';
@@ -44,8 +44,8 @@ bootApp.then(() => render(Root)).catch(() => render(Root));
 // render(Root);
 
 if (module.hot) {
-  module.hot.accept('./containers/Root', () => {
-    const NewRoot = require('./containers/Root').default; // eslint-disable-line global-require
+  module.hot.accept('./components/Root', () => {
+    const NewRoot = require('./components/Root').default; // eslint-disable-line global-require
 
     render(NewRoot);
   });

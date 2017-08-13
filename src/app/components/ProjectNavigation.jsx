@@ -8,17 +8,20 @@ class ProjectNavigation extends PureComponent {
   };
 
   render() {
-    const { projectId } = this.props;
+    const { projectId: id } = this.props;
     return (
       <ul className="nav nav-pills mb-4">
         <li className="nav-item">
-          <Link className="nav-link" activeClassName="active" to={`/projects/${projectId}/edit`}>Basic</Link>
+          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/edit`}>Basic</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" activeClassName="active" to={`/projects/${projectId}/locales`}>Locales</Link>
+          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/locales`}>Locales</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" activeClassName="active" to={`/projects/${projectId}/members`}>Members</Link>
+          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/dictionaries`}>Dictionaries</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/members`}>Members</Link>
         </li>
       </ul>
     );

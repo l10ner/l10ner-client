@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 
 import api from 'resources/api';
-import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT,
+import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT, UPDATE_DICTIONARY,
   DROP_PROJECT, UPDATE_PROJECT, DELETE_PROJECT, UPDATE_LOCALE } from './actionTypes';
 
 const getProjectsSuccess = createAction(GET_PROJECTS);
@@ -68,6 +68,26 @@ export function updateLocale({ id, ...localeData }) {
 }
 export function deleteLocale(projectId, localeId) {
   return dispatch => api.deleteLocale(projectId, localeId).then(() => {
+    dispatch(getProject(projectId));
+  });
+}
+
+
+export function createDictionary(projectId, dictionary) {
+  return dispatch => api.createDictionary(projectId, dictionary).then(() => {
+    dispatch(getProject(projectId));
+  });
+}
+
+const updateDictionarySuccess = createAction(UPDATE_DICTIONARY);
+export function updateDictionary({ id, ...dictionaryData }) {
+  return dispatch => api.updateDictionary(id, dictionaryData).then(({ data }) => {
+    dispatch(updateDictionarySuccess(data));
+  });
+}
+
+export function deleteDictionary(projectId, dictionaryId) {
+  return dispatch => api.deleteDictionary(projectId, dictionaryId).then(() => {
     dispatch(getProject(projectId));
   });
 }

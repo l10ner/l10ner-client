@@ -10,7 +10,7 @@ class ProjectCard extends Component {
       name: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
       desc: PropTypes.string,
-      default_locale: PropTypes.number,
+      defaultLocale: PropTypes.number,
     }).isRequired,
   };
 
@@ -19,7 +19,7 @@ class ProjectCard extends Component {
   };
 
   render() {
-    const { name, desc, id, default_locale: defaultLocale } = this.props.project;
+    const { name, desc, id, defaultLocale } = this.props.project;
 
     return (
       <div className="card mb-4">
@@ -27,7 +27,7 @@ class ProjectCard extends Component {
           <h3 className="card-title">{name}</h3>
           <p className="card-text">{desc}</p>
           {defaultLocale &&
-          <Link to={`/projects/${id}`} className="btn btn-primary mr-2">Open</Link>
+          <Link to={`/projects/${id}`} className="btn btn-primary mr-2">Manage</Link>
           }
           <Link to={`/projects/${id}/edit`} className="btn btn-secondary mr-2">Edit</Link>
           <button className="btn btn-danger mr-2" onClick={this.handleConfirmDelete}>Delete</button>

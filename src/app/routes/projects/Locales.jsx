@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { deleteLocale, updateLocale } from 'redux/projects/actions';
+import { deleteLocale } from 'redux/projects/actions';
 
 import ModalLocaleNew from 'components/modals/LocaleNew';
 import LocaleTableItem from 'components/LocaleTableItem';
@@ -10,7 +10,6 @@ import LocaleTableItem from 'components/LocaleTableItem';
 class ProjectLocales extends Component {
   static propTypes = {
     deleteLocale: PropTypes.func.isRequired,
-    updateLocale: PropTypes.func.isRequired,
     project: PropTypes.shape({
       id: PropTypes.number.isRequired
     }).isRequired,
@@ -56,11 +55,10 @@ class ProjectLocales extends Component {
             <tbody>
               {project.locales.map(locale => (
                 <LocaleTableItem
-                  isDefault={locale.id === project.default_locale}
+                  isDefault={locale.id === project.defaultLocale}
                   key={locale.id}
                   locale={locale}
                   onDelete={this.handleDeleteLocale}
-                  onUpdate={this.props.updateLocale}
                 />
               ))}
             </tbody>
@@ -76,4 +74,4 @@ function mapStateToProps({ projects }) {
     project: projects.current
   };
 }
-export default connect(mapStateToProps, { deleteLocale, updateLocale })(ProjectLocales);
+export default connect(mapStateToProps, { deleteLocale })(ProjectLocales);
