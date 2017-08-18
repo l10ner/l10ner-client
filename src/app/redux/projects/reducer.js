@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 
-import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT, DROP_PROJECT, DELETE_PROJECT, UPDATE_PROJECT, GET_DICTONARY_KEYS,
-  UPDATE_LOCALE, UPDATE_DICTIONARY } from './actionTypes';
+import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT, DROP_CURRENT_PROJECT, DELETE_PROJECT,
+  UPDATE_PROJECT, GET_DICTONARY_KEYS } from './actionTypes';
 
 const initState = {
   entries: [],
@@ -31,7 +31,7 @@ const userReducer = handleActions({
       ...action.payload
     }
   }),
-  [DROP_PROJECT]: state => ({
+  [DROP_CURRENT_PROJECT]: state => ({
     ...state,
     current: {}
   }),
@@ -39,20 +39,6 @@ const userReducer = handleActions({
     ...state,
     entries: state.entries.filter(p => p.id !== action.payload)
     // N.B. pagination still old
-  }),
-  [UPDATE_LOCALE]: (state, action) => ({
-    ...state,
-    current: {
-      ...state.current,
-      locales: state.current.locales.map(locale => (locale.id === action.payload.id ? action.payload : locale))
-    }
-  }),
-  [UPDATE_DICTIONARY]: (state, action) => ({
-    ...state,
-    current: {
-      ...state.current,
-      dictionaries: state.current.dictionaries.map(dict => (dict.id === action.payload.id ? action.payload : dict))
-    }
   }),
   [GET_DICTONARY_KEYS]: (state, action) => ({
     ...state,

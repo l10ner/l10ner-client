@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { createForm } from 'rc-form';
 import { connect } from 'react-redux';
 
-import { createLocale, updateLocale } from 'redux/projects/actions';
+import { createLocale, updateLocale } from 'redux/locales/actions';
 
 class ModalLocaleNew extends Component {
   static propTypes = {

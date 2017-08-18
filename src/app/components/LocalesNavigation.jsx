@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'react-router/lib/Link';
+import IndexLink from 'react-router/lib/IndexLink';
 
 class LocalesNavigation extends PureComponent {
   static propTypes = {
@@ -19,13 +20,21 @@ class LocalesNavigation extends PureComponent {
     return (
       <div>
         <ul className="nav nav-pills mb-4">
+          <li className="nav-item">
+            <IndexLink
+              to={`/projects/${projectId}/dictionaries/${dictionaryId}`}
+              className="nav-link"
+              activeClassName="active"
+            >
+              Keys
+            </IndexLink>
+          </li>
           {items.map(l => (
             <li className="nav-item" key={l.id}>
               <Link
-                to={`/projects/${projectId}/locales/${l.id}/dictionaries/${dictionaryId}`}
+                to={`/projects/${projectId}/dictionaries/${dictionaryId}/locales/${l.id}`}
                 className="nav-link"
                 activeClassName="active"
-                key={l.id}
               >
                 {l.label}
               </Link>

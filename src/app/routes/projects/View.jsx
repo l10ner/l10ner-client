@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
-import Link from 'react-router/lib/Link';
 
 import { getProject, dropProjectData } from 'redux/projects/actions';
 
-import ProjectNavigation from 'components/ProjectNavigation';
 import DictionariesNavigation from 'components/DictionariesNavigation';
 import DictionaryKeys from 'components/DictionaryKeys';
 import LocalesNavigation from 'components/LocalesNavigation';
 
 class Project extends Component {
   static propTypes = {
-    children: PropTypes.node,
     params: PropTypes.shape({
       projectId: PropTypes.string.isRequired
     }).isRequired,
@@ -28,61 +25,55 @@ class Project extends Component {
   };
 
   static defaultProps = {
-    children: undefined,
     defaultLocale: undefined,
     locales: [],
     dictionaries: [],
   };
 
+  state = {
+    keyMode: false
+  };
+
   componentWillMount() {
     console.log(this.props);
   }
-  componentDidMount() {
-    this.getProjectData();
-    this.checkRedirectRule();
-  }
+  // componentDidMount() {
+  //   this.getProjectData();
+  //   this.checkRedirectRule();
+  // }
+  //
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.params.projectId !== prevProps.params.projectId) this.getProjectData();
+  //
+  //   if (this.props.project.id && this.props.project.id !== prevProps.project.id) this.checkRedirectRule();
+  // }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.params.projectId !== prevProps.params.projectId) this.getProjectData();
+  // componentWillUnmount() {
+  //   this.props.dropProjectData();
+  // }
+  //
+  // getProjectData() {
+  //   this.props.getProject(this.props.params.projectId);
+  // }
 
-    if (this.props.project.id && this.props.project.id !== prevProps.project.id) this.checkRedirectRule();
-  }
-
-  componentWillUnmount() {
-    this.props.dropProjectData();
-  }
-
-  getProjectData() {
-    this.props.getProject(this.props.params.projectId);
-  }
-
-  checkRedirectRule() {
-    const { children, project, dictionaries, params } = this.props;
-
-    if (children || !project.defaultLocale) return;
-
-    const projectId = params.projectId;
-    const localeId = params.localeId || project.defaultLocale;
-    const dictionaryId =
-      (!params.dictionaryId && dictionaries.length === 0) ? '' : `/${(params.dictionaryId || dictionaries[0].id)}`;
-
-    this.props.routerReplace(`/projects/${projectId}/locales/${localeId}/dictionaries${dictionaryId}`);
-  }
+  // checkRedirectRule() {
+  //   const { project, dictionaries, params } = this.props;
+  //
+  //   if (!project.defaultLocale) return;
+  //
+  //   const projectId = params.projectId;
+  //   const localeId = params.localeId || project.defaultLocale;
+  //   const dictionaryId =
+  //     (!params.dictionaryId && dictionaries.length === 0) ? '' : `/${(params.dictionaryId || dictionaries[0].id)}`;
+  //
+  //   this.props.routerReplace(`/projects/${projectId}/locales/${localeId}/dictionaries${dictionaryId}`);
+  // }
 
   render() {
-    const { children, params, project, locales, dictionaries } = this.props;
+    const { params, project, locales, dictionaries } = this.props;
 
     // console.log('isLoaded', isLoaded);
-    if (!project.id) return null;
-
-    if (children) {
-      return (<div>
-        <ProjectNavigation projectId={project.id} />
-        {children}
-        <hr />
-        <Link to="/projects" className="btn btn-primary">Back to projects</Link>
-      </div>);
-    }
+    if (!project.id) return <div />;
 
     const localeId = Number(params.localeId || project.defaultLocale);
     const dictionaryId = Number(params.dictionaryId);
@@ -100,6 +91,9 @@ class Project extends Component {
             />
           </div>
           <div className="col-sm-9">
+            <button className="btn btn-primary" onClick={() => this.setState({ keyMode: true })}>
+              Keys
+            </button>
             <LocalesNavigation
               items={locales}
               projectId={project.id}

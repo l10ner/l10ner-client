@@ -6,21 +6,24 @@ import { getDictionaryKeys, deleteDictionaryKey } from 'redux/projects/actions';
 import ModalKeyValueForm from 'components/modals/KeyValueForm';
 import DictionaryKeysListItem from 'components/DictionaryKeysListItem';
 
-class DictionaryKeys extends Component {
+class DictionaryItems extends Component {
   static propTypes = {
     hash: PropTypes.string.isRequired,
     getDictionaryKeys: PropTypes.func.isRequired,
     deleteDictionaryKey: PropTypes.func.isRequired,
     projectId: PropTypes.number.isRequired,
-    localeId: PropTypes.number.isRequired,
+    localeId: PropTypes.number,
     dictionaryId: PropTypes.number.isRequired,
     project: PropTypes.shape({}).isRequired,
     keys: PropTypes.arrayOf(PropTypes.shape({})),
+    isKeys: PropTypes.bool
   };
 
   static defaultProps = {
     keys: [],
     values: [],
+    localeId: null,
+    isKeys: false
   };
 
   state = {
@@ -29,14 +32,14 @@ class DictionaryKeys extends Component {
   };
 
   componentDidMount() {
-    this.getKeys();
+    this.getItems();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.hash !== prevProps.hash) this.getKeys();
+    if (this.props.hash !== prevProps.hash) this.getItems();
   }
 
-  getKeys() {
+  getItems() {
     const { projectId, localeId, dictionaryId } = this.props;
 
     this.props.getDictionaryKeys({ projectId, localeId, dictionaryId });
@@ -131,4 +134,4 @@ function mapStateToProps({ projects }) {
     project: projects.current,
   };
 }
-export default connect(mapStateToProps, { getDictionaryKeys, deleteDictionaryKey })(DictionaryKeys);
+export default connect(mapStateToProps, { getDictionaryKeys, deleteDictionaryKey })(DictionaryItems);

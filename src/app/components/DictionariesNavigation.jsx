@@ -19,12 +19,13 @@ class DictionariesNavigation extends PureComponent {
   render() {
     const { items, projectId, localeId } = this.props;
     const { modalDictionaryForm } = this.state;
+    const localeUrl = localeId ? `/locales/${localeId}` : '';
 
     return (
       <div>
         <button
           type="submit"
-          className="btn btn-outline-secondary"
+          className="btn btn-outline-secondary btn-block mb-3"
           onClick={() => this.setState({ modalDictionaryForm: true })}
         >
           Add Dictionary +
@@ -33,7 +34,7 @@ class DictionariesNavigation extends PureComponent {
         <ul className="list-group mt-2">
           {items.map(d => (
             <Link
-              to={`/projects/${projectId}/locales/${localeId}/dictionaries/${d.id}`}
+              to={`/projects/${projectId}/dictionaries/${d.id}${localeUrl}`}
               className="list-group-item"
               activeClassName="active"
               key={d.id}

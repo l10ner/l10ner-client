@@ -16,9 +16,9 @@ class ProjectEdit extends Component {
     project: PropTypes.shape({
       id: PropTypes.number.isRequired
     }).isRequired,
-    locales: PropTypes.shape({
+    locales: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired
-    }).isRequired,
+    }).isRequired).isRequired,
     onUpdateProject: PropTypes.func.isRequired
   };
 

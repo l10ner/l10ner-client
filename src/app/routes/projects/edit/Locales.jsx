@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { deleteLocale } from 'redux/projects/actions';
+import { deleteLocale } from 'redux/locales/actions';
 
 import ModalLocaleNew from 'components/modals/LocaleNew';
 import LocaleTableItem from 'components/LocaleTableItem';
 
-class ProjectLocales extends Component {
+class ProjectEditLocales extends Component {
   static propTypes = {
     deleteLocale: PropTypes.func.isRequired,
     project: PropTypes.shape({
@@ -76,4 +76,4 @@ function mapStateToProps({ projects, locales }) {
     locales: locales.entriesIds.map(id => locales.entries[id]),
   };
 }
-export default connect(mapStateToProps, { deleteLocale })(ProjectLocales);
+export default connect(mapStateToProps, { deleteLocale })(ProjectEditLocales);

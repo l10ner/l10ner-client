@@ -1,1 +1,4 @@
 export const SET_LOCALES = 'SET_LOCALES';
+export const CREATE_LOCALE = 'CREATE_LOCALE';
+export const UPDATE_LOCALE = 'UPDATE_LOCALE';
+export const DELETE_LOCALE = 'DELETE_LOCALE';

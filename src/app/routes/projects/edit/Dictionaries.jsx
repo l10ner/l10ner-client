@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { deleteDictionary } from 'redux/projects/actions';
+import { deleteDictionary } from 'redux/dictionaries/actions';
 
 import ModalDictionaryForm from 'components/modals/DictionaryForm';
 import DictionaryListItem from 'components/DictionaryListItem';
 
-class ProjectDictionaries extends Component {
+class ProjectEditDictionaries extends Component {
   static propTypes = {
     deleteDictionary: PropTypes.func.isRequired,
     project: PropTypes.shape({
@@ -88,4 +88,4 @@ function mapStateToProps({ projects, dictionaries }) {
     dictionaries: dictionaries.entriesIds.map(id => dictionaries.entries[id]),
   };
 }
-export default connect(mapStateToProps, { deleteDictionary })(ProjectDictionaries);
+export default connect(mapStateToProps, { deleteDictionary })(ProjectEditDictionaries);

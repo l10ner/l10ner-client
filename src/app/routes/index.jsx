@@ -1,15 +1,22 @@
 import React from 'react';
-import { Route, IndexRoute, Redirect } from 'react-router';
+import Route from 'react-router/lib/Route';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import Redirect from 'react-router/lib/Redirect';
+import IndexRedirect from 'react-router/lib/IndexRedirect';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history3/redirect';
 
 import App from './App';
 import Home from './Home';
 import Projects from './projects';
-import ProjectView from './projects/View';
-import ProjectEdit from './projects/Edit';
-import ProjectMembers from './projects/Members';
-import ProjectLocales from './projects/Locales';
-import ProjectDictionaries from './projects/Dictionaries';
+import Project from './projects/Project';
+import Dictionary from './projects/Dictionary';
+import DictionaryKeys from './projects/DictionaryKeys';
+import DictionaryValues from './projects/DictionaryValues';
+import ProjectEdit from './projects/edit';
+import ProjectEditBasic from './projects/edit/Basic';
+import ProjectEditMembers from './projects/edit/Members';
+import ProjectEditLocales from './projects/edit/Locales';
+import ProjectEditDictionaries from './projects/edit/Dictionaries';
 
 const UserIsAuthenticated = connectedRouterRedirect({
   authenticatedSelector: state => state.user.logged, // how to get the user state
@@ -30,14 +37,23 @@ export const getRoutes = store => (
     />
 
     <Route path="projects" component={UserIsAuthenticated(Projects)} />
-    <Route path="projects/:projectId" component={UserIsAuthenticated(ProjectView)}>
-      <Route path="edit" component={ProjectEdit} />
-      <Route path="locales" component={ProjectLocales} />
-      <Route path="members" component={ProjectMembers} />
-      <Route path="dictionaries" component={ProjectDictionaries} />
 
-      <Route path="locales/:localeId/dictionaries" />
-      <Route path="locales/:localeId/dictionaries/:dictionaryId" />
+    <Route path="projects/:projectId" component={UserIsAuthenticated(Project)}>
+      <IndexRedirect to="dictionaries" />
+
+      <Route path="dictionaries" components={Dictionary}>
+        <Route path=":dictionaryId">
+          <IndexRoute component={DictionaryKeys} />
+          <Route path="locales/:localeId" components={DictionaryValues} />
+        </Route>
+      </Route>
+
+      <Route path="edit" component={ProjectEdit}>
+        <IndexRoute component={ProjectEditBasic} />
+        <Route path="locales" component={ProjectEditLocales} />
+        <Route path="members" component={ProjectEditMembers} />
+        <Route path="dictionaries" component={ProjectEditDictionaries} />
+      </Route>
     </Route>
 
     <Redirect from="*" to="/" />

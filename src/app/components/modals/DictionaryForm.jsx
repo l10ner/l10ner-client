@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { createForm } from 'rc-form';
 import { connect } from 'react-redux';
 
-import { createDictionary, updateDictionary } from 'redux/projects/actions';
+import { createDictionary, updateDictionary } from 'redux/dictionaries/actions';
 
 class ModalDictionaryForm extends Component {
   static propTypes = {

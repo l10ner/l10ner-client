@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'react-router/lib/Link';
+import IndexLink from 'react-router/lib/IndexLink';
 
 class ProjectNavigation extends PureComponent {
   static propTypes = {
@@ -12,16 +13,18 @@ class ProjectNavigation extends PureComponent {
     return (
       <ul className="nav nav-pills mb-4">
         <li className="nav-item">
-          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/edit`}>Basic</Link>
+          <IndexLink className="nav-link" activeClassName="active" to={`/projects/${id}/edit`}>Basic</IndexLink>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/locales`}>Locales</Link>
+          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/edit/locales`}>Locales</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/dictionaries`}>Dictionaries</Link>
+          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/edit/dictionaries`}>
+            Dictionaries
+          </Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/members`}>Members</Link>
+          <Link className="nav-link" activeClassName="active" to={`/projects/${id}/edit/members`}>Members</Link>
         </li>
       </ul>
     );

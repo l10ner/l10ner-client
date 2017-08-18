@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 
 
-class ProjectMembers extends Component {
+class ProjectEditMembers extends Component {
   // static propTypes = {
   //   params: PropTypes.shape({}).isRequired,
   // };
@@ -24,4 +24,4 @@ class ProjectMembers extends Component {
 }
 
 
-export default ProjectMembers;
+export default ProjectEditMembers;
