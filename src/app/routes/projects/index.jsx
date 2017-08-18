@@ -45,12 +45,6 @@ class Projects extends Component {
     return (
       <div>
         {entries.map(p => <ProjectCard project={p} key={p.id} onDelete={this.props.deleteProject} />)}
-        <hr />
-        кнопка перейти только если проставлен дефолтный язык
-        <hr />
-        редактировать/удалить видны всегда
-        <hr />
-        если проектов нет, кнопку с попапом создания проекта
       </div>
     );
   }

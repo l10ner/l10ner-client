@@ -70,7 +70,7 @@ class Project extends Component {
   }
 
   render() {
-    const { children, params: { localeId, dictionaryId }, project, locales, dictionaries } = this.props;
+    const { children, params, project, locales, dictionaries } = this.props;
 
     // console.log('isLoaded', isLoaded);
     if (!project.id) return null;
@@ -84,6 +84,9 @@ class Project extends Component {
       </div>);
     }
 
+    const localeId = Number(params.localeId || project.defaultLocale);
+    const dictionaryId = Number(params.dictionaryId);
+
     return (
       <div>
         <h3>{project.name}</h3>
@@ -93,7 +96,7 @@ class Project extends Component {
             <DictionariesNavigation
               items={dictionaries}
               projectId={project.id}
-              localeId={Number(localeId || project.defaultLocale)}
+              localeId={localeId}
             />
           </div>
           <div className="col-sm-9">
@@ -104,8 +107,9 @@ class Project extends Component {
             />
             <DictionaryKeys
               projectId={project.id}
-              localeId={Number(localeId || project.defaultLocale)}
+              localeId={localeId}
               dictionaryId={dictionaryId}
+              hash={`${project.id}__${localeId}__${dictionaryId}`}
             />
           </div>
         </div>
@@ -119,10 +123,10 @@ class Project extends Component {
 }
 
 // WTF
-function mapStateToProps({ projects }) {
+function mapStateToProps({ projects, dictionaries, locales }) {
   return {
-    dictionaries: projects.current.dictionaries,
-    locales: projects.current.locales,
+    dictionaries: dictionaries.entriesIds.map(id => dictionaries.entries[id]),
+    locales: locales.entriesIds.map(id => locales.entries[id]),
     project: projects.current,
   };
 }

@@ -6,7 +6,7 @@ class LocalesNavigation extends PureComponent {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     projectId: PropTypes.number.isRequired,
-    dictionaryId: PropTypes.string,
+    dictionaryId: PropTypes.number,
   };
 
   static defaultProps = {

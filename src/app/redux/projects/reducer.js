@@ -1,12 +1,13 @@
 import { handleActions } from 'redux-actions';
 
-import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT, DROP_PROJECT, DELETE_PROJECT, UPDATE_PROJECT,
+import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT, DROP_PROJECT, DELETE_PROJECT, UPDATE_PROJECT, GET_DICTONARY_KEYS,
   UPDATE_LOCALE, UPDATE_DICTIONARY } from './actionTypes';
 
 const initState = {
   entries: [],
   pager: {},
-  current: {}
+  current: {},
+  keys: {}
 };
 
 const userReducer = handleActions({
@@ -52,6 +53,10 @@ const userReducer = handleActions({
       ...state.current,
       dictionaries: state.current.dictionaries.map(dict => (dict.id === action.payload.id ? action.payload : dict))
     }
+  }),
+  [GET_DICTONARY_KEYS]: (state, action) => ({
+    ...state,
+    keys: action.payload
   }),
 }, initState);
 
