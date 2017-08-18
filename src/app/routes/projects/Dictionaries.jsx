@@ -13,6 +13,7 @@ class ProjectDictionaries extends Component {
     project: PropTypes.shape({
       id: PropTypes.number.isRequired
     }).isRequired,
+    dictionaries: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   };
 
   state = {
@@ -30,7 +31,7 @@ class ProjectDictionaries extends Component {
   };
 
   render() {
-    const { project } = this.props;
+    const { project, dictionaries } = this.props;
     const { modalDictionaryForm } = this.state;
 
     return (
@@ -56,7 +57,7 @@ class ProjectDictionaries extends Component {
             </button>
           </div>
         </div>
-        {project.dictionaries.length > 0 &&
+        {dictionaries.length > 0 &&
           <table className="table mb-4">
             <thead className="thead-default">
               <tr>
@@ -66,7 +67,7 @@ class ProjectDictionaries extends Component {
               </tr>
             </thead>
             <tbody>
-              {project.dictionaries.map(dict => (
+              {dictionaries.map(dict => (
                 <DictionaryListItem
                   key={dict.id}
                   item={dict}
@@ -81,9 +82,10 @@ class ProjectDictionaries extends Component {
   }
 }
 
-function mapStateToProps({ projects }) {
+function mapStateToProps({ projects, dictionaries }) {
   return {
-    project: projects.current
+    project: projects.current,
+    dictionaries: dictionaries.entriesIds.map(id => dictionaries.entries[id]),
   };
 }
 export default connect(mapStateToProps, { deleteDictionary })(ProjectDictionaries);

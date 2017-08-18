@@ -13,6 +13,7 @@ class ProjectLocales extends Component {
     project: PropTypes.shape({
       id: PropTypes.number.isRequired
     }).isRequired,
+    locales: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   };
 
   state = {
@@ -24,7 +25,7 @@ class ProjectLocales extends Component {
   };
 
   render() {
-    const { project } = this.props;
+    const { project, locales } = this.props;
     const { modalLocaleNew } = this.state;
 
     return (
@@ -43,7 +44,7 @@ class ProjectLocales extends Component {
             </button>
           </div>
         </div>
-        {project.locales.length > 0 &&
+        {locales.length > 0 &&
           <table className="table mb-4">
             <thead className="thead-default">
               <tr>
@@ -53,7 +54,7 @@ class ProjectLocales extends Component {
               </tr>
             </thead>
             <tbody>
-              {project.locales.map(locale => (
+              {locales.map(locale => (
                 <LocaleTableItem
                   isDefault={locale.id === project.defaultLocale}
                   key={locale.id}
@@ -69,9 +70,10 @@ class ProjectLocales extends Component {
   }
 }
 
-function mapStateToProps({ projects }) {
+function mapStateToProps({ projects, locales }) {
   return {
-    project: projects.current
+    project: projects.current,
+    locales: locales.entriesIds.map(id => locales.entries[id]),
   };
 }
 export default connect(mapStateToProps, { deleteLocale })(ProjectLocales);
