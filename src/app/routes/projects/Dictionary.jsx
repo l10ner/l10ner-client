@@ -67,11 +67,13 @@ class Dictionary extends Component {
             />
           </div>
           <div className="col-sm-9">
-            <LocalesNavigation
-              items={locales}
-              projectId={project.id}
-              dictionaryId={dictionaryId}
-            />
+            {Boolean(dictionaryId) &&
+              <LocalesNavigation
+                items={locales}
+                projectId={project.id}
+                dictionaryId={dictionaryId}
+              />
+            }
 
             {this.props.children}
           </div>

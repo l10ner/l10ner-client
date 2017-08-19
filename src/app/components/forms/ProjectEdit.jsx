@@ -50,7 +50,7 @@ class ProjectEdit extends Component {
         <label htmlFor="defaultLocale">Default locale</label>
         {isEmpty ?
           <div>
-            <Link to={`/projects/${project.id}/locales`}>Please add locales</Link>
+            <Link to={`/projects/${project.id}/edit/locales`}>Please add locales</Link>
           </div>
           :
           <select
