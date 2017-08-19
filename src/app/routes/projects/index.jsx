@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { getProjects, deleteProject } from 'redux/projects/actions';
 import ProjectCard from 'components/ProjectCard';
-import ModalProjectNew from 'components/ModalProjectNew';
+import ModalProjectNew from 'components/modals/ProjectNew';
 
 class Projects extends Component {
   static propTypes = {

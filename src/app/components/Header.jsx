@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 
 import { logOut } from 'redux/user/actions';
 
-import ModalLogin from 'components/ModalLogin';
-import ModalSignup from 'components/ModalSignup';
-import ModalProjectNew from 'components/ModalProjectNew';
+import ModalLogin from 'components/modals/Login';
+import ModalSignup from 'components/modals/Signup';
+import ModalProjectNew from 'components/modals/ProjectNew';
 
 class Header extends Component {
   static propTypes = {
