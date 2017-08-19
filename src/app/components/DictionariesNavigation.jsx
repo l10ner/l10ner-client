@@ -25,7 +25,7 @@ class DictionariesNavigation extends PureComponent {
       <div>
         <button
           type="submit"
-          className="btn btn-outline-secondary btn-block mb-3"
+          className="btn btn-outline-secondary btn-block mb-4"
           onClick={() => this.setState({ modalDictionaryForm: true })}
         >
           Add Dictionary +

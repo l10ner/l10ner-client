@@ -4,18 +4,17 @@ import Modal from 'react-modal';
 import { createForm } from 'rc-form';
 import { connect } from 'react-redux';
 
-import { createDictionaryPair, createOrUpdateDictionaryValue } from 'redux/projects/actions';
+import { createDictionaryValue, updateDictionaryValue } from 'redux/values/actions';
 
-class ModalKeyValueForm extends Component {
+class ModalValueForm extends Component {
   static propTypes = {
-    isDefaultLocale: PropTypes.bool,
     closeModal: PropTypes.func.isRequired,
     projectId: PropTypes.number.isRequired,
     localeId: PropTypes.number.isRequired,
     dictionaryId: PropTypes.number.isRequired,
-    pair: PropTypes.shape({}),
-    createDictionaryPair: PropTypes.func.isRequired,
-    createOrUpdateDictionaryValue: PropTypes.func.isRequired,
+    item: PropTypes.shape({}),
+    createDictionaryValue: PropTypes.func.isRequired,
+    updateDictionaryValue: PropTypes.func.isRequired,
     form: PropTypes.shape({
       validateFields: PropTypes.func.isRequired,
       getFieldProps: PropTypes.func.isRequired,
@@ -25,26 +24,22 @@ class ModalKeyValueForm extends Component {
   };
 
   static defaultProps = {
-    isDefaultLocale: false,
-    // projectId: undefined,
-    // localeId: undefined,
-    // dictionaryId: undefined,
-    pair: undefined,
+    item: undefined,
   };
 
   handleSubmit = () => {
-    const { pair, projectId, localeId, dictionaryId } = this.props;
+    const { item, projectId, localeId, dictionaryId } = this.props;
 
     this.props.form.validateFields((error, values) => {
       if (!error) {
-        const action = pair ? this.props.createOrUpdateDictionaryValue : this.props.createDictionaryPair;
+        const action = item.value ? this.props.updateDictionaryValue : this.props.createDictionaryValue;
         const params = { ...values, projectId, localeId, dictionaryId };
 
-        if (pair) {
-          params.keyId = pair.id;
+        if (item) {
+          params.keyId = item.id;
 
-          if (pair.value) {
-            params.id = pair.value.id;
+          if (item.value) {
+            params.id = item.value.id;
           }
         }
 
@@ -62,8 +57,7 @@ class ModalKeyValueForm extends Component {
   };
 
   render() {
-    const { pair, form: { getFieldProps, getFieldError }, isDefaultLocale } = this.props;
-    const nameError = getFieldError('name');
+    const { item, form: { getFieldProps, getFieldError } } = this.props;
     const valueError = getFieldError('value');
     const commentError = getFieldError('comment');
     const formErros = getFieldError('__');
@@ -75,29 +69,25 @@ class ModalKeyValueForm extends Component {
         onRequestClose={this.props.closeModal}
         isOpen
       >
-        Add new key/value pair
+        Update key value
         <div>
           {formErros && <p className="test">{formErros.join(', ')}</p>}
           <div className="form-group">
             <label htmlFor="dictKey">Key</label>
             <input
-              {...getFieldProps('name', {
-                rules: [{ required: true }],
-                initialValue: pair ? pair.name : ''
-              })}
               id="dictKey"
+              value={item.name}
               className="form-control"
               placeholder="profile"
-              readOnly={pair && !isDefaultLocale}
+              readOnly
             />
-            {nameError && nameError.join(',')}
           </div>
           <div className="form-group">
             <label htmlFor="dictValue">Value</label>
             <input
               {...getFieldProps('value', {
                 // rules: [{ required: true }],
-                initialValue: pair && pair.value ? pair.value.value : ''
+                initialValue: item.value ? item.value.value : ''
               })}
               className="form-control"
               id="dictValue"
@@ -110,7 +100,7 @@ class ModalKeyValueForm extends Component {
             <input
               {...getFieldProps('comment', {
                 // rules: [{ required: true }],
-                initialValue: pair && pair.value ? pair.value.comment : ''
+                initialValue: item.value ? item.value.comment : ''
               })}
               className="form-control"
               id="dictComment"
@@ -127,6 +117,6 @@ class ModalKeyValueForm extends Component {
 
 
 export default connect(null, {
-  createDictionaryPair,
-  createOrUpdateDictionaryValue
-})(createForm()(ModalKeyValueForm));
+  createDictionaryValue,
+  updateDictionaryValue
+})(createForm()(ModalValueForm));

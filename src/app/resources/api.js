@@ -57,26 +57,44 @@ export default {
   },
 
 
-  getDictionaryKeys({ projectId, localeId, dictionaryId }) {
-    return api.get(`${API_SERVER}/projects/${projectId}/locales/${localeId}/dictionaries/${dictionaryId}/keys`);
+  getDictionaryKeys({ projectId, dictionaryId }) {
+    return api.get(`${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}/keys`);
   },
-  createDictionaryPair({ projectId, localeId, dictionaryId, ...data }) {
-    return api.post(`${API_SERVER}/projects/${projectId}/locales/${localeId}/dictionaries/${dictionaryId}/keys`,
+  createDictionaryKey({ projectId, dictionaryId, ...data }) {
+    return api.post(`${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}/keys`,
       JSON.stringify(data));
   },
+  updateDictionaryKey({ id, projectId, dictionaryId, ...data }) {
+    return api.patch(`${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}/keys/${id}`,
+      JSON.stringify(data)
+    );
+  },
+  deleteDictionaryKey({ projectId, dictionaryId, id }) {
+    return api.delete(
+      `${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}/keys/${id}`
+    );
+  },
+
+  // createDictionaryPair({ projectId, localeId, dictionaryId, ...data }) {
+  //   return api.post(`${API_SERVER}/projects/${projectId}/locales/${localeId}/dictionaries/${dictionaryId}/keys`,
+  //     JSON.stringify(data));
+  // },
+  getDictionaryValues({ projectId, dictionaryId, localeId }) {
+    return api.get(`${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}/locales/${localeId}/values`);
+  },
   createDictionaryValue({ projectId, localeId, dictionaryId, ...data }) {
-    return api.post(`${API_SERVER}/projects/${projectId}/locales/${localeId}/dictionaries/${dictionaryId}/values`,
+    return api.post(`${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}/locales/${localeId}/values`,
       JSON.stringify(data));
   },
   updateDictionaryValue({ id, projectId, localeId, dictionaryId, ...data }) {
     return api.patch(
-      `${API_SERVER}/projects/${projectId}/locales/${localeId}/dictionaries/${dictionaryId}/values/${id}`,
+      `${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}/locales/${localeId}/values/${id}`,
       JSON.stringify(data)
     );
   },
-  deleteDictionaryKey({ projectId, localeId, dictionaryId, id }) {
+  deleteDictionaryValue({ projectId, dictionaryId, localeId, id }) {
     return api.delete(
-      `${API_SERVER}/projects/${projectId}/locales/${localeId}/dictionaries/${dictionaryId}/keys/${id}`
+      `${API_SERVER}/projects/${projectId}/dictionaries/${dictionaryId}/locales/${localeId}/values/${id}`
     );
   },
 };

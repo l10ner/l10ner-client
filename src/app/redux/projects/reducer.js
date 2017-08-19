@@ -1,13 +1,12 @@
 import { handleActions } from 'redux-actions';
 
-import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT, DROP_CURRENT_PROJECT, DELETE_PROJECT,
-  UPDATE_PROJECT, GET_DICTONARY_KEYS } from './actionTypes';
+import { GET_PROJECTS, CREATE_PROJECT, GET_PROJECT, DROP_CURRENT_PROJECT, DELETE_PROJECT, UPDATE_PROJECT }
+  from './actionTypes';
 
 const initState = {
   entries: [],
   pager: {},
   current: {},
-  keys: {}
 };
 
 const userReducer = handleActions({
@@ -39,10 +38,6 @@ const userReducer = handleActions({
     ...state,
     entries: state.entries.filter(p => p.id !== action.payload)
     // N.B. pagination still old
-  }),
-  [GET_DICTONARY_KEYS]: (state, action) => ({
-    ...state,
-    keys: action.payload
   }),
 }, initState);
 

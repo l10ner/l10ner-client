@@ -76,10 +76,6 @@ class Dictionary extends Component {
             {this.props.children}
           </div>
         </div>
-        <hr />
-        <p>
-          наверное стоит вынести таблицу в отдельный view-route locales/:localeId/dictionaries/:dictionaryId
-        </p>
       </div>
     );
   }

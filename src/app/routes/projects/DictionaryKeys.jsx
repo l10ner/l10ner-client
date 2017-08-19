@@ -1,42 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
 
-// import { getProject, dropProjectData } from 'redux/projects/actions';
-
-// import DictionariesNavigation from 'components/DictionariesNavigation';
-import DictionaryItems from 'components/DictionaryKeys';
-// import LocalesNavigation from 'components/LocalesNavigation';
+import DictionaryKeysList from 'components/DictionaryKeysList';
 
 class DictionaryKeys extends Component {
   static propTypes = {
     params: PropTypes.shape({
-      projectId: PropTypes.string.isRequired
+      projectId: PropTypes.string.isRequired,
+      dictionaryId: PropTypes.string.isRequired,
     }).isRequired,
   };
 
   render() {
-    const { params } = this.props;
+    const { projectId, dictionaryId } = this.props.params;
 
     return (
       <div>
-        <DictionaryItems
-          projectId={Number(params.projectId)}
-          dictionaryId={Number(params.dictionaryId)}
-          hash={`${params.projectId}__${params.dictionaryId}`}
-          isKeys
+        <DictionaryKeysList
+          projectId={Number(projectId)}
+          dictionaryId={Number(dictionaryId)}
         />
       </div>
     );
   }
 }
 
-// WTF
-function mapStateToProps({ projects, dictionaries }) {
-  return {
-    dictionaries: dictionaries.entriesIds.map(id => dictionaries.entries[id]),
-    project: projects.current,
-  };
-}
-export default connect(mapStateToProps, { routerReplace: replace })(DictionaryKeys);
+export default DictionaryKeys;

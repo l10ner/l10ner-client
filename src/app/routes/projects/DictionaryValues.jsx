@@ -1,29 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-// import { replace } from 'react-router-redux';
 
-// import { getProject, dropProjectData } from 'redux/projects/actions';
-
-import DictionaryKeys from 'components/DictionaryKeys';
+import DictionaryValuesList from 'components/DictionaryValuesList';
 
 class DictionaryValues extends Component {
   static propTypes = {
     params: PropTypes.shape({
-      projectId: PropTypes.string.isRequired
+      projectId: PropTypes.string.isRequired,
+      dictionaryId: PropTypes.string.isRequired,
+      localeId: PropTypes.string.isRequired,
     }).isRequired,
   };
 
   render() {
-    const { params } = this.props;
+    const { projectId, localeId, dictionaryId } = this.props.params;
 
     return (
       <div>
-        <DictionaryKeys
-          projectId={Number(params.projectId)}
-          localeId={Number(params.localeId)}
-          dictionaryId={Number(params.dictionaryId)}
-          hash={`${params.projectId}__${params.localeId}__${params.dictionaryId}`}
+        <DictionaryValuesList
+          projectId={Number(projectId)}
+          localeId={Number(localeId)}
+          dictionaryId={Number(dictionaryId)}
         />
       </div>
     );

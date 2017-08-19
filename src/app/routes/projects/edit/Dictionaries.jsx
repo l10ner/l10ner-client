@@ -20,12 +20,6 @@ class ProjectEditDictionaries extends Component {
     modalDictionaryForm: false,
   };
 
-  // handleOpenModal = () => {
-  //   console.log('lalala');
-  //   this.setState({ modalDictionaryForm: true });
-  // };
-  // handleCloseModal = () => this.setState({ modalDictionaryForm: false });
-
   handleDeleteDictionary = (dictionaryId) => {
     this.props.deleteDictionary(this.props.project.id, dictionaryId);
   };
